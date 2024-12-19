@@ -1,0 +1,15 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- create:
+    ~/.config:
+      mode: 0755
+
+- link:
+    ~/.config/nvim: nvim
+
+- shell:
+    - ['git submodule update --init --recursive', Initialize Git submodules]

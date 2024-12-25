@@ -22,7 +22,7 @@ return {
 
         require("mason-lspconfig").setup({
             ensure_installed = { "html", "lua_ls", "pyright", "jdtls", "ruby_lsp", "clangd" },
-            automatic_installation = true, -- Automatically install servers
+            automatic_installation = true,
         })
 
         require("mason-tool-installer").setup({
@@ -35,7 +35,7 @@ return {
         local lspconfig = require('lspconfig')
         local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
         local lsp_attach = function(client, bufnr)
-            -- Create your keybindings here... 
+            -- keybindings here
         end
 
         require('mason-lspconfig').setup_handlers({

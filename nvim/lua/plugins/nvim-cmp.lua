@@ -70,7 +70,7 @@ return {
             },
 
             completion = {
-                completeopt = "menu,menuone,noinsert,noselect",
+                completeopt = "menu, menuone, noinsert, noselect",
                 scrollbar = true,
             },
 

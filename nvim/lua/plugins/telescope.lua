@@ -3,14 +3,14 @@ return {
     cmd = "Telescope",
     version = false,
     dependencies = {
-        {"nvim-lua/plenary.nvim"},
+        { "nvim-lua/plenary.nvim" },
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
             cond = function()
                 return vim.fn.executable("make") == 1
-            end
-        }
+            end,
+        },
     },
     opts = {
         defaults = {
@@ -19,19 +19,24 @@ return {
             selection_caret = "  ",
             mappings = {
                 i = {
-                    ["<esc>"] = function(...) return require("telescope.actions").close(...) end,
-                    ["?"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end }
+                    ["<esc>"] = function(...)
+                        return require("telescope.actions").close(...)
+                    end,
+                    ["?"] = function(...)
+                        return require("telescope.actions.layout").toggle_preview(...)
+                    end,
                 },
+            },
             preview = { hide_on_startup = true },
         },
 
         pickers = {
-            find_files = { theme = "dropdown", },
-            live_grep = { theme = "dropdown", },
-            help_tags = { theme = "dropdown", },
-            highlights = { theme = "dropdown", },
-            buffers = { theme = "dropdown", },
-            oldfiles = { theme = "dropdown", },
-        }
-    }
+            find_files = { theme = "dropdown" },
+            live_grep = { theme = "dropdown" },
+            help_tags = { theme = "dropdown" },
+            highlights = { theme = "dropdown" },
+            buffers = { theme = "dropdown" },
+            oldfiles = { theme = "dropdown" },
+        },
+    },
 }

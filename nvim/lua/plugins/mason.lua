@@ -4,6 +4,7 @@ return {
         { "williamboman/mason-lspconfig.nvim" },
         { "WhoIsSethDaniel/mason-tool-installer.nvim" },
     },
+
     config = function()
         require("mason").setup({
             ui = {
@@ -29,24 +30,24 @@ return {
             ensure_installed = {
                 "java-debug-adapter",
                 "java-test",
-            }
+            },
         })
 
-        local lspconfig = require('lspconfig')
-        local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+        local lspconfig = require("lspconfig")
+        local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
         local lsp_attach = function(client, bufnr)
             -- keybindings here
         end
 
-        require('mason-lspconfig').setup_handlers({
+        require("mason-lspconfig").setup_handlers({
             function(server_name)
-                if server_name ~= 'jdtls' then
+                if server_name ~= "jdtls" then
                     lspconfig[server_name].setup({
                         on_attach = lsp_attach,
                         capabilities = lsp_capabilities,
                     })
                 end
-            end
+            end,
         })
-    end
+    end,
 }

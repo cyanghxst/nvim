@@ -66,7 +66,7 @@ return {
 
         cmp.setup({
             experimental = {
-                ghost_text = true
+                ghost_text = true,
             },
 
             completion = {
@@ -122,8 +122,7 @@ return {
                     vim_item.kind = (icons[vim_item.kind] or "Foo") .. "  " .. vim_item.kind
                     return vim_item
                 end,
-            }
-
+            },
         })
     end,
 }

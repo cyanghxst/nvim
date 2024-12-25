@@ -8,21 +8,21 @@ return {
 
         ---LHS of toggle mappings in NORMAL mode
         toggler = {
-            line = 'gcc',
-            block = 'gbc',
+            line = "gcc",
+            block = "gbc",
         },
 
         ---LHS of operator-pending mappings in NORMAL and VISUAL mode
         opleader = {
-            line = 'gc',
-            block = 'gb',
+            line = "gc",
+            block = "gb",
         },
 
         ---LHS of extra mappings
         extra = {
-            above = 'gcO',
-            below = 'gco',
-            eol = 'gcA',
+            above = "gcO",
+            below = "gco",
+            eol = "gcA",
         },
 
         ---Enable keybindings
@@ -33,5 +33,5 @@ return {
 
         pre_hook = nil,
         post_hook = nil,
-    }
+    },
 }

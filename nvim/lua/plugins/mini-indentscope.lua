@@ -14,7 +14,7 @@ return {
                 "Trouble",
                 "nvimtree",
                 "dashboard",
-                "neo-tree"
+                "neo-tree",
             },
             callback = function()
                 vim.b.miniindentscope_disable = true
@@ -38,5 +38,5 @@ return {
             try_as_border = true,
         },
         symbol = "│",
-    }
+    },
 }

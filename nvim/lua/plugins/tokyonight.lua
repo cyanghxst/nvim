@@ -3,7 +3,7 @@ return {
     enabled = true,
     priority = 1000,
     init = function()
-        vim.cmd.colorscheme [[tokyonight]]
+        vim.cmd.colorscheme([[tokyonight]])
     end,
     opts = function()
         return {
@@ -15,6 +15,7 @@ return {
                 sidebars = "transparent",
                 floats = "transparent",
             },
+
             sidebars = { "qf", "help", "terminal", "packer", "nvimtree" },
             hide_inactive_statusline = true,
             dim_inactive = false,

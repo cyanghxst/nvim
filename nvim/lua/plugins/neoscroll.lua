@@ -5,5 +5,5 @@ return {
     config = {
         hide_cursor = true,
         easing = "linear",
-    }
+    },
 }

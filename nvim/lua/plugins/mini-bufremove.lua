@@ -1,4 +1,4 @@
 return {
     "echasnovski/mini.bufremove",
-    config = true;
+    config = true,
 }

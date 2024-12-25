@@ -13,12 +13,13 @@ return {
             end
         end
     end,
+
     opts = {
         filters = { dotfiles = true },
         hijack_cursor = true,
-        update_focused_file = { enable = true, update_root = false, },
+        update_focused_file = { enable = true, update_root = false },
         sync_root_with_cwd = true,
-        view = { width = 25, side = "left", },
+        view = { width = 25, side = "left" },
         git = {
             enable = false,
             ignore = false,
@@ -28,7 +29,7 @@ return {
         diagnostics = {
             enable = false,
             show_on_dirs = true,
-            icons = { hint = "", info = "", warning = "", error = "", },
+            icons = { hint = "", info = "", warning = "", error = "" },
         },
         modified = {
             enable = false,
@@ -71,9 +72,9 @@ return {
                         untracked = "󰋗",
                         deleted = "󰍶",
                         ignored = "◌",
-                    }
-                }
-            }
-        }
-    }
+                    },
+                },
+            },
+        },
+    },
 }

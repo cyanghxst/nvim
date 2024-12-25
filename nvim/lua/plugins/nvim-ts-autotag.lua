@@ -3,8 +3,6 @@ return {
     enabled = true,
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-        require("nvim-ts-autotag").setup({
-
-        })
-    end
+        require("nvim-ts-autotag").setup({})
+    end,
 }

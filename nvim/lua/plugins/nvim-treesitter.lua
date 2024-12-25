@@ -8,12 +8,12 @@ return {
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = false,
-            disable = { "tmux" }
+            disable = { "tmux" },
         },
 
         indent = {
             enable = false,
-            disable = { "python" }
+            disable = { "python" },
         },
 
         ensure_installed = {
@@ -54,19 +54,19 @@ return {
                 enable = true,
                 goto_next_start = {
                     ["]f"] = "@function.outer",
-                    ["]c"] = "@class.outer"
+                    ["]c"] = "@class.outer",
                 },
                 goto_next_end = {
                     ["]F"] = "@function.outer",
-                    ["]C"] = "@class.outer"
+                    ["]C"] = "@class.outer",
                 },
                 goto_previous_start = {
                     ["[f"] = "@function.outer",
-                    ["[c"] = "@class.outer"
+                    ["[c"] = "@class.outer",
                 },
                 goto_previous_end = {
                     ["[F"] = "@function.outer",
-                    ["[C"] = "@class.outer"
+                    ["[C"] = "@class.outer",
                 },
             },
             select = {
@@ -99,5 +99,7 @@ return {
             },
         },
     },
-    config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
+    config = function(_, opts)
+        require("nvim-treesitter.configs").setup(opts)
+    end,
 }

@@ -12,21 +12,21 @@ return {
         },
 
         signs = {
-            add          = { text = "│" },
-            change       = { text = "│" },
-            delete       = { text = "_" },
-            topdelete    = { text = "‾" },
+            add = { text = "│" },
+            change = { text = "│" },
+            delete = { text = "_" },
+            topdelete = { text = "‾" },
             changedelete = { text = "~" },
-            untracked    = { text = "┆" },
+            untracked = { text = "┆" },
         },
 
         signs_staged = {
-            add          = { text = "│" },
-            change       = { text = "│" },
-            delete       = { text = "_" },
-            topdelete    = { text = "‾" },
+            add = { text = "│" },
+            change = { text = "│" },
+            delete = { text = "_" },
+            topdelete = { text = "‾" },
             changedelete = { text = "~" },
-            untracked    = { text = "┆" },
+            untracked = { text = "┆" },
         },
 
         current_line_blame = false,
@@ -35,5 +35,5 @@ return {
         status_formatter = nil,
         word_diff = false,
         -- keymaps = {},
-    }
+    },
 }

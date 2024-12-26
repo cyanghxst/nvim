@@ -17,7 +17,10 @@ return {
                 auto_show_delay_ms = 250,
                 update_delay_ms = 50,
                 treesitter_highlighting = true,
-                window = { border = "rounded" },
+                window = {
+                    border = "rounded",
+                    winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder",
+                },
             },
             list = {
                 selection = function(ctx)
@@ -25,18 +28,20 @@ return {
                 end,
             },
             menu = {
+                winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel",
+                scrollbar = false,
                 border = "rounded",
-                cmdline_position = function()
-                    if vim.g.ui_cmdline_pos ~= nil then
-                        local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
-                        return { pos[1] - 1, pos[2] }
-                    end
-                    local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
-                    return { vim.o.lines - height, 0 }
-                end,
+                -- cmdline_position = function()
+                --     if vim.g.ui_cmdline_pos ~= nil then
+                --         local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+                --         return { pos[1] - 1, pos[2] }
+                --     end
+                --     local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+                --     return { vim.o.lines - height, 0 }
+                -- end,
                 draw = {
                     columns = {
-                        { "kind_icon", "label", gap = 1 },
+                        { "label", "kind_icon", gap = 2 },
                         { "kind" },
                     },
                     components = {

@@ -2,12 +2,12 @@ return {
     "neovim/nvim-lspconfig",
     enabled = true,
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = { "hrsh7th/cmp-nvim-lsp" },
+    dependencies = { "Saghen/blink.cmp" },
     config = function()
         local lsp = require("lspconfig")
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-        capabilities.textDocument.completion.completionItem.snippetSupport = true
+        -- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
         -- Lua
         lsp.lua_ls.setup({

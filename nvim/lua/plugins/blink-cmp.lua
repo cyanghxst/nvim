@@ -11,6 +11,7 @@ return {
             nerd_font_variant = "mono",
         },
         completion = {
+            ghost_text = { enabled = true },
             accept = { auto_brackets = { enabled = true } },
             documentation = {
                 auto_show = true,
@@ -31,26 +32,23 @@ return {
                 winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel",
                 scrollbar = false,
                 border = "rounded",
-                -- cmdline_position = function()
-                --     if vim.g.ui_cmdline_pos ~= nil then
-                --         local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
-                --         return { pos[1] - 1, pos[2] }
-                --     end
-                --     local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
-                --     return { vim.o.lines - height, 0 }
-                -- end,
+                cmdline_position = function()
+                    if vim.g.ui_cmdline_pos ~= nil then
+                        local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+                        return { pos[1] - 1, pos[2] }
+                    end
+                    local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+                    return { vim.o.lines - height, 0 }
+                end,
                 draw = {
-                    columns = {
-                        { "label", "kind_icon", gap = 2 },
-                        { "kind" },
-                    },
+                    columns = { { "label", "kind_icon", gap = 2 }, { "kind" } },
                     components = {
                         kind_icon = {
                             text = function(item)
                                 local kind = require("lspkind").symbol_map[item.kind] or ""
                                 return kind .. " "
                             end,
-                            highlight = "cmpitemkind",
+                            -- highlight = "cmpitemkind",
                         },
                         label = {
                             text = function(item)
@@ -62,7 +60,7 @@ return {
                             text = function(item)
                                 return item.kind
                             end,
-                            highlight = "cmpitemkind",
+                            -- highlight = "cmpitemkind",
                         },
                     },
                 },
@@ -98,7 +96,10 @@ return {
         -- experimental signature help support
         signature = {
             enabled = true,
-            window = { border = "rounded" },
+            window = {
+                border = "rounded",
+                winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder",
+            },
         },
 
         sources = {
@@ -117,8 +118,8 @@ return {
             end,
             providers = {
                 lsp = {
-                    min_keyword_length = 2, -- number of characters to trigger porvider
-                    score_offset = 0, -- boost/penalize the score of the items
+                    min_keyword_length = 1,
+                    score_offset = 0,
                 },
                 path = {
                     min_keyword_length = 0,
@@ -129,6 +130,9 @@ return {
                 buffer = {
                     min_keyword_length = 5,
                     max_items = 5,
+                },
+                cmdline = {
+                    min_keyword_length = 3,
                 },
             },
         },

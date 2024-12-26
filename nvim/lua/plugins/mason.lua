@@ -33,12 +33,14 @@ return {
             },
         })
 
+        -- Use blink.cmp for LSP capabilities
         local lspconfig = require("lspconfig")
-        local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+        local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
         local lsp_attach = function(client, bufnr)
-            -- keybindings here
+            -- Keybindings or additional setup here
         end
 
+        -- Configure handlers with blink.cmp capabilities
         require("mason-lspconfig").setup_handlers({
             function(server_name)
                 if server_name ~= "jdtls" then

@@ -48,7 +48,7 @@ return {
 
         -- Diagnostic configuration
         vim.diagnostic.config({
-            virtual_text = true,
+            virtual_text = { prefix = "" },
             signs = {
                 text = {
                     [vim.diagnostic.severity.HINT] = "󰩳",

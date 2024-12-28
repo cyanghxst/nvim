@@ -53,11 +53,11 @@ return {
                 hl.AlphaShortcut = { fg = palette.blue }
                 hl.AlphaFooter = { fg = palette.gray2 }
 
-                -- Search
-                hl.Search = { bg = palette.green, fg = palette.black }
-                hl.CurSearch = { bg = palette.blue, fg = palette.black }
-                hl.IncSearch = { bg = palette.blue, fg = palette.black }
-
+                -- -- Search
+                -- hl.Search = { bg = palette.green, fg = palette.black }
+                -- hl.CurSearch = { bg = palette.blue, fg = palette.black }
+                -- hl.IncSearch = { bg = palette.blue, fg = palette.black }
+                --
                 -- CursorLine
                 hl.CursorLineNr = { fg = palette.white }
                 hl.CursorLine = { bg = palette.gray3 }

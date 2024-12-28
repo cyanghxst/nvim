@@ -9,7 +9,6 @@ local opts = { noremap = true, silent = true }
 keymap("n", "<leader>l", "<cmd>Lazy<cr>", opts)
 
 -- Search and highlights
-keymap("n", "<cr>", "<cmd>nohlsearch<cr>", opts)
 keymap("n", "<esc>", "<cmd>nohlsearch<cr>", opts)
 
 -- Duplicate line and comment
@@ -27,16 +26,20 @@ keymap("v", ">", ">gv", opts)
 keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Disable floating window on return key
+-- Clear highlight search and toggle floating windows
 keymap("n", "<cr>", function()
     for _, win in ipairs(vim.api.nvim_list_wins()) do
-        if vim.api.nvim_win_get_config(win).relative ~= '' then
+        if vim.api.nvim_win_get_config(win).relative ~= "" then
             vim.api.nvim_win_close(win, true)
             return
         end
     end
-    vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
-end, { desc = 'Toggle Diagnostics' })
+    if vim.v.hlsearch == 1 then
+        vim.cmd("nohlsearch")
+    else
+        vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+    end
+end, { desc = "Clear Highlights or Toggle Diagnostics" })
 
 -- ============================
 -- Window & Buffer Navigation
@@ -60,15 +63,24 @@ keymap("n", "L", "<cmd>bnext<cr>", opts)
 keymap("n", "<leader>s", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle" })
 
 -- Bufremove
-keymap("n", "<leader>ww", function() require("mini.bufremove").delete(0, false) end, { desc = "Delete Buffer" })
-keymap("n", "<leader>wq", function() require("mini.bufremove").delete(0, true) end, { desc = "Delete Buffer (Force)" })
+keymap("n", "<leader>ww", function()
+    require("mini.bufremove").delete(0, false)
+end, { desc = "Delete Buffer" })
+keymap("n", "<leader>wq", function()
+    require("mini.bufremove").delete(0, true)
+end, { desc = "Delete Buffer (Force)" })
 
 -- ============================
 -- Telescope Keymaps
 -- ============================
 
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find Files" })
-keymap("n", "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", { desc = "Find All Files" })
+keymap(
+    "n",
+    "<leader>fa",
+    "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+    { desc = "Find All Files" }
+)
 keymap("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Find Grep" })
 keymap("n", "<leader>ft", "<cmd>Telescope help_tags<CR>", { desc = "Find Tags" })
 keymap("n", "<leader>fh", "<cmd>Telescope highlights<CR>", { desc = "Find Highlights" })
@@ -101,7 +113,12 @@ keymap("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", opts)
 
 keymap("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
 keymap("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>", opts)
-keymap("n", "<leader>bl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>", opts)
+keymap(
+    "n",
+    "<leader>bl",
+    "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
+    opts
+)
 keymap("n", "<leader>br", "<cmd>lua require'dap'.clear_breakpoints()<cr>", opts)
 keymap("n", "<leader>ba", "<cmd>Telescope dap list_breakpoints<cr>", opts)
 keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", opts)
@@ -109,24 +126,26 @@ keymap("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>", opts)
 keymap("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>", opts)
 keymap("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>", opts)
 keymap("n", "<leader>dd", function()
-    require('dap').disconnect()
-    require('dapui').close()
+    require("dap").disconnect()
+    require("dapui").close()
 end, opts)
 keymap("n", "<leader>dt", function()
-    require('dap').terminate()
-    require('dapui').close()
+    require("dap").terminate()
+    require("dapui").close()
 end, opts)
 keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", opts)
 keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
-keymap("n", "<leader>di", function() require "dap.ui.widgets".hover() end, opts)
+keymap("n", "<leader>di", function()
+    require("dap.ui.widgets").hover()
+end, opts)
 keymap("n", "<leader>d?", function()
-    local widgets = require "dap.ui.widgets"
+    local widgets = require("dap.ui.widgets")
     widgets.centered_float(widgets.scopes)
 end, opts)
 keymap("n", "<leader>df", "<cmd>Telescope dap frames<cr>", opts)
 keymap("n", "<leader>dh", "<cmd>Telescope dap commands<cr>", opts)
 keymap("n", "<leader>de", function()
-    require('telescope.builtin').diagnostics({ default_text = ":E:" })
+    require("telescope.builtin").diagnostics({ default_text = ":E:" })
 end, opts)
 
 -- ============================

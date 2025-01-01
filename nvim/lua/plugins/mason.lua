@@ -32,24 +32,5 @@ return {
                 "java-test",
             },
         })
-
-        -- Use blink.cmp for LSP capabilities
-        local lspconfig = require("lspconfig")
-        local lsp_capabilities = require("blink.cmp").get_lsp_capabilities()
-        local lsp_attach = function(client, bufnr)
-            -- Keybindings or additional setup here
-        end
-
-        -- Configure handlers with blink.cmp capabilities
-        require("mason-lspconfig").setup_handlers({
-            function(server_name)
-                if server_name ~= "jdtls" then
-                    lspconfig[server_name].setup({
-                        on_attach = lsp_attach,
-                        capabilities = lsp_capabilities,
-                    })
-                end
-            end,
-        })
     end,
 }

@@ -56,3 +56,14 @@ augroup yaml_fix
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>
 augroup END
 ]])
+
+-- Re-enable lsp diagnostics after autoformatting
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*",
+    callback = function(args)
+        -- vim.lsp.buf.format({ bufnr = args.buf, async = true })
+        vim.defer_fn(function()
+            vim.diagnostic.enable(args.buf)
+        end, 100)
+    end,
+})

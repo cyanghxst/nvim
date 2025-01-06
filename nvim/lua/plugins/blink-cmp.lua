@@ -123,6 +123,15 @@ return {
                 path = {
                     min_keyword_length = 0,
                 },
+                luasnip = {
+                    name = "luasnip",
+                    enabled = true,
+                    module = "blink.cmp.sources.luasnip",
+                    min_keyword_length = 2,
+                    fallbacks = { "snippet" },
+                    max_items = 8,
+                    score_offset = 85,
+                },
                 snippets = {
                     min_keyword_length = 2,
                 },

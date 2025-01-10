@@ -1,0 +1,16 @@
+{
+    "Fast IO": {
+        "prefix": "javadoc",
+        "body": [
+            "/**",
+            " * description",
+            " *",
+            " * @param argument description",
+            " * @return type description",
+            " * precondition: ",
+            " * postcondition: ",
+            " */"
+        ],
+        "description": "Javadoc template for methods"
+    }
+}

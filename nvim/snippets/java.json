@@ -3,12 +3,13 @@
         "prefix": "javadoc",
         "body": [
             "/**",
-            " * description",
+            " * $0",
             " *",
-            " * @param argument description",
-            " * @return type description",
-            " * precondition: ",
-            " * postcondition: ",
+            " * @param var description",
+            " * @return description",
+            " *",
+            " * precondition: description",
+            " * postcondition: description",
             " */"
         ],
         "description": "Javadoc template for methods"

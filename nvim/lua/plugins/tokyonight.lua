@@ -33,6 +33,7 @@ return {
                     gray2 = "#3b4261",
                     gray3 = "#232435",
                     black = "#1e2231",
+                    red = "#f7768e",
                     background = "#16151d",
                 }
 
@@ -97,6 +98,7 @@ return {
                 hl.NvimTreeEmptyFolderName = { fg = palette.blue }
                 hl.NvimTreeRootFolder = { fg = palette.bone, bold = true }
                 hl.NvimTreeSpecialFile = { fg = palette.bone, bold = true }
+                hl.NvimTreeExecFile = { fg = palette.red }
             end,
         }
     end,

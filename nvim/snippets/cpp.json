@@ -6,5 +6,18 @@
             "std::cin.tie(nullptr);"
         ],
         "description": "Fast I/O setup for C++"
+    },
+
+    "Mutiline comment": {
+        "prefix": "multiline",
+        "body": [
+            "/*",
+            " * $0",
+            " *",
+            " * precondition: description",
+            " * postcondition: description",
+            " */"
+        ],
+        "description": "Multiline comment template for functions"
     }
 }

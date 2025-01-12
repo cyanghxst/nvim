@@ -19,5 +19,18 @@
             " */"
         ],
         "description": "Multiline comment template for functions"
+    },
+
+    "Header": {
+        "prefix": "header",
+        "body": [
+            "/*",
+            " * Assignment $0",
+            " * Course code section",
+            " * ID:",
+            " * Name:",
+            " */"
+        ],
+        "description": "Header template for cpp programs"
     }
 }

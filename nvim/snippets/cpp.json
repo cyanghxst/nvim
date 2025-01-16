@@ -29,6 +29,7 @@
             " * Course code section",
             " * ID:",
             " * Name:",
+            " * Date:",
             " */"
         ],
         "description": "Header template for cpp programs"

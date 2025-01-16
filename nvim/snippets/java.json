@@ -13,5 +13,21 @@
             " */"
         ],
         "description": "Javadoc template for methods"
+    },
+
+    "Header": {
+        "prefix": "header",
+        "body": [
+            "/**",
+            " * Assignment $0",
+            " * Course: code section",
+            " * Instructor:",
+            " * ID:",
+            " * Program Name:",
+            " * Author Name:",
+            " * Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+            " */"
+        ],
+        "description": "Header template for Java programs"
     }
 }

@@ -8,8 +8,8 @@
             " * @param var description",
             " * @return description",
             " *",
-            " * precondition: description",
-            " * postcondition: description",
+            " * Precondition: description",
+            " * Postcondition: description",
             " */"
         ],
         "description": "Javadoc template for methods"

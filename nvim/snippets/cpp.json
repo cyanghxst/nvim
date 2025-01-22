@@ -9,13 +9,13 @@
     },
 
     "Mutiline comment": {
-        "prefix": "multiline",
+        "prefix": "comment",
         "body": [
             "/*",
             " * $0",
             " *",
-            " * precondition: description",
-            " * postcondition: description",
+            " * Precondition: description",
+            " * Postcondition: description",
             " */"
         ],
         "description": "Multiline comment template for functions"

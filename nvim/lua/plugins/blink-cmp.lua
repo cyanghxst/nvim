@@ -133,7 +133,8 @@ return {
                     score_offset = 85,
                 },
                 snippets = {
-                    min_keyword_length = 2,
+                    min_keyword_length = 3,
+                    score_offset = 100,
                 },
                 buffer = {
                     min_keyword_length = 5,

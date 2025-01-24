@@ -29,5 +29,13 @@
             " */$0"
         ],
         "description": "Header template for Java programs"
+    },
+
+    "System.out.printf": {
+        "prefix": "printf",
+        "body": [
+            "System.out.printf(\"${1:%s}\\n\", ${2:value});$0"
+        ],
+        "description": "Insert a System.out.printf statement"
     }
 }

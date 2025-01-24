@@ -3,13 +3,13 @@
         "prefix": "javadoc",
         "body": [
             "/**",
-            " * $0",
+            " * ${1:Method description}",
             " *",
-            " * @param var description",
-            " * @return description",
+            " * @param ${2:var} ${3:description}",
+            " * @return ${4:description}",
             " *",
-            " * Precondition: description",
-            " * Postcondition: description",
+            " * Precondition: ${5:description}",
+            " * Postcondition: ${6:description}",
             " */"
         ],
         "description": "Javadoc template for methods"
@@ -19,14 +19,14 @@
         "prefix": "header",
         "body": [
             "/**",
-            " * Assignment $0",
-            " * Course: code section",
-            " * Instructor:",
-            " * ID:",
-            " * Program Name:",
-            " * Author Name:",
+            " * Assignment: ${1:Assignment Name}",
+            " * Course: ${2:Course Code and Section}",
+            " * Instructor: ${3:Instructor Name}",
+            " * ID: ${4:Student ID}",
+            " * Program Name: ${5:Program Name}",
+            " * Author Name: ${6:Your Name}",
             " * Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
-            " */"
+            " */$0"
         ],
         "description": "Header template for Java programs"
     }

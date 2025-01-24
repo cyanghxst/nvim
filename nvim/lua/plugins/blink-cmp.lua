@@ -22,11 +22,7 @@ return {
                     winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder",
                 },
             },
-            list = {
-                selection = function(ctx)
-                    return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-                end,
-            },
+            list = { selection = { preselect = true, auto_insert = true } },
             menu = {
                 winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel",
                 scrollbar = false,
@@ -70,20 +66,6 @@ return {
             ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
             ["<C-e>"] = { "hide", "fallback" },
             ["<CR>"] = { "accept", "fallback" },
-            ["<Tab>"] = {
-                function(cmp)
-                    return cmp.select_next()
-                end,
-                "snippet_forward",
-                "fallback",
-            },
-            ["<S-Tab>"] = {
-                function(cmp)
-                    return cmp.select_prev()
-                end,
-                "snippet_backward",
-                "fallback",
-            },
             ["<Up>"] = { "select_prev", "fallback" },
             ["<Down>"] = { "select_next", "fallback" },
             ["<C-p>"] = { "select_prev", "fallback" },
@@ -122,15 +104,6 @@ return {
                 },
                 path = {
                     min_keyword_length = 0,
-                },
-                luasnip = {
-                    name = "luasnip",
-                    enabled = true,
-                    module = "blink.cmp.sources.luasnip",
-                    min_keyword_length = 2,
-                    fallbacks = { "snippet" },
-                    max_items = 8,
-                    score_offset = 85,
                 },
                 snippets = {
                     min_keyword_length = 3,

@@ -74,10 +74,10 @@ local config = {
             format = {
                 enabled = true,
                 -- Formatting works by default, but you can refer to a specific file/URL if you choose
-                -- settings = {
-                --   url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
-                --   profile = "GoogleStyle",
-                -- },
+                settings = {
+                    url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
+                    profile = "GoogleStyle",
+                },
             },
         },
         completion = {
@@ -124,6 +124,13 @@ local config = {
 config["on_attach"] = function(client, bufnr)
     -- jdtls.setup_dap({ hotcodereplace = 'auto' })
     -- require('jdtls.dap').setup_dap_main_class_configs()
+
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.buf.format({ async = false }) -- Blocking format before saving
+        end,
+    })
 end
 
 -- This starts a new client & server, or attaches to an existing client & server based on the `root_dir`.

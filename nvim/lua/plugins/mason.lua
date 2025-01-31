@@ -22,7 +22,7 @@ return {
         })
 
         require("mason-lspconfig").setup({
-            ensure_installed = { "html", "lua_ls", "pyright", "jdtls", "ruby_lsp", "clangd" },
+            ensure_installed = { "html", "lua_ls", "pyright", "jdtls", "clangd", "stylua" },
             automatic_installation = true,
         })
 

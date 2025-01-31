@@ -15,7 +15,7 @@ vim.list_extend(
 
 local config = {
     cmd = {
-        vim.env.HOME .. "/.local/share/mise/installs/java/temurin-17.0.13+11/bin/java",
+        vim.env.HOME .. "/.local/share/mise/installs/java/temurin-21.0.6+7.0.LTS/bin/java",
         "-Declipse.application=org.eclipse.jdt.ls.core.id1",
         "-Dosgi.bundles.defaultStartLevel=4",
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -40,7 +40,7 @@ local config = {
 
     settings = {
         java = {
-            home = vim.env.HOME .. "/.local/share/mise/installs/java/temurin-17.0.13+11",
+            home = vim.env.HOME .. "/.local/share/mise/installs/java/temurin-21.0.6+7.0.LTS",
             eclipse = {
                 downloadSources = true,
             },
@@ -54,7 +54,7 @@ local config = {
                     },
                     {
                         name = "JavaSE-21",
-                        path = vim.env.HOME .. "/.local/share/mise/installs/java/temurin-21.0.5+11.0.LTS",
+                        path = vim.env.HOME .. "/.local/share/mise/installs/java/temurin-21.0.6+7.0.LTS",
                     },
                 },
             },

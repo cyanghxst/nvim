@@ -85,18 +85,7 @@ return {
 
         sources = {
             default = { "lsp", "path", "snippets", "buffer" },
-            cmdline = function()
-                local type = vim.fn.getcmdtype()
-                -- search forward and backward
-                if type == "/" or type == "?" then
-                    return { "buffer" }
-                end
-                -- commands
-                if type == ":" then
-                    return { "cmdline" }
-                end
-                return {}
-            end,
+            cmdline = {},
             providers = {
                 lsp = {
                     min_keyword_length = 1,
@@ -113,9 +102,7 @@ return {
                     min_keyword_length = 5,
                     max_items = 5,
                 },
-                cmdline = {
-                    min_keyword_length = 3,
-                },
+                cmdline = {},
             },
         },
     },

@@ -17,6 +17,7 @@ return {
     opts = {
         filters = { dotfiles = true },
         hijack_cursor = true,
+        sort = { sorter = "extension" },
         update_focused_file = { enable = true, update_root = false },
         sync_root_with_cwd = true,
         view = { width = 25, side = "left" },

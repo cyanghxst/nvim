@@ -75,7 +75,7 @@ local config = {
                 enabled = true,
                 -- Formatting works by default, but you can refer to a specific file/URL if you choose
                 settings = {
-                    url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
+                    url = vim.env.HOME .. "/.config/jdtls/jdtls-format.xml",
                     profile = "GoogleStyle",
                 },
             },

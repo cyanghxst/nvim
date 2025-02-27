@@ -15,7 +15,7 @@ vim.list_extend(
 
 local config = {
     cmd = {
-        vim.env.HOME .. "/.local/share/mise/installs/java/temurin-21.0.6+7.0.LTS/bin/java",
+        "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/current/bin/java",
         "-Declipse.application=org.eclipse.jdt.ls.core.id1",
         "-Dosgi.bundles.defaultStartLevel=4",
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -40,21 +40,24 @@ local config = {
 
     settings = {
         java = {
-            home = vim.env.HOME .. "/.local/share/mise/installs/java/temurin-21.0.6+7.0.LTS",
+            home = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/current/bin/java",
             eclipse = {
                 downloadSources = true,
             },
             configuration = {
                 updateBuildConfiguration = "interactive",
                 runtimes = {
-                    { name = "JavaSE-1.8", path = vim.env.HOME .. "/.local/share/mise/installs/java/zulu-8.82.0.21" },
+                    {
+                        name = "JavaSE-1.8",
+                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/8.0.442.fx-zulu",
+                    },
                     {
                         name = "JavaSE-17",
-                        path = vim.env.HOME .. "/.local/share/mise/installs/java/temurin-17.0.13+11",
+                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/17.0.14.fx-zulu",
                     },
                     {
                         name = "JavaSE-21",
-                        path = vim.env.HOME .. "/.local/share/mise/installs/java/temurin-21.0.6+7.0.LTS",
+                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.6.fx-zulu",
                     },
                 },
             },
@@ -73,7 +76,6 @@ local config = {
             signatureHelp = { enabled = true },
             format = {
                 enabled = true,
-                -- Formatting works by default, but you can refer to a specific file/URL if you choose
                 settings = {
                     url = vim.env.HOME .. "/.config/jdtls/jdtls-format.xml",
                     profile = "GoogleStyle",

@@ -41,10 +41,18 @@ return {
             filetypes = { "javascript", "typescript", "vue" },
         })
 
+        -- Additional Language Servers
         lsp.html.setup({ capabilities = capabilities })
         lsp.cssls.setup({ capabilities = capabilities })
         lsp.jsonls.setup({ capabilities = capabilities })
         lsp.ruby_lsp.setup({ capabilities = capabilities })
+
+        -- Bash Language Server
+        lsp.bashls.setup({
+            capabilities = capabilities,
+            filetypes = { "sh", "bash", "zsh" },
+            cmd = { "bash-language-server", "start" },
+        })
 
         -- Diagnostic configuration
         vim.diagnostic.config({

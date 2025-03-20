@@ -14,6 +14,13 @@ return {
             capabilities = capabilities,
             settings = {
                 Lua = {
+                    diagnostics = {
+                        globals = {
+                            "vim",
+                            "require",
+                            "hs",
+                        },
+                    },
                     workspace = { checkThirdParty = false },
                     completion = { callSnippet = "Replace" },
                 },

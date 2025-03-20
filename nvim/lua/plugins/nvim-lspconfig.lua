@@ -53,6 +53,7 @@ return {
         lsp.cssls.setup({ capabilities = capabilities })
         lsp.jsonls.setup({ capabilities = capabilities })
         lsp.ruby_lsp.setup({ capabilities = capabilities })
+        lsp.pyright.setup({ capabilities = capabilities })
 
         -- Bash Language Server
         lsp.bashls.setup({

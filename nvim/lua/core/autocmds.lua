@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     callback = function(args)
         -- vim.lsp.buf.format({ bufnr = args.buf, async = true })
         vim.defer_fn(function()
-            vim.diagnostic.enable(args.buf)
+            vim.diagnostic.enable(true)
         end, 100)
     end,
 })

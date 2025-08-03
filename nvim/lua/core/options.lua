@@ -41,6 +41,8 @@ opt.wildmenu = true
 -- Clipboard
 opt.clipboard = "unnamedplus"
 
+o.modeline = false
+
 -- Cursorline
 o.cursorline = true
 o.cursorlineopt = "number"

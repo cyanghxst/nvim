@@ -38,6 +38,7 @@ return {
             show_on_open_dirs = true,
         },
         renderer = {
+            group_empty = true,
             highlight_git = false,
             root_folder_label = function(path)
                 local project = vim.fn.fnamemodify(path, ":t")

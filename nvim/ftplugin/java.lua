@@ -1,6 +1,7 @@
 local jdtls = require("jdtls")
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:t")
 local workspace_dir = vim.env.HOME .. "/.jdtls-workspace/" .. project_name
+local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" })
 
 local bundles = {
     vim.fn.glob(
@@ -36,11 +37,15 @@ local config = {
         workspace_dir,
     },
 
-    root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" }),
+    root_dir = root_dir,
 
     settings = {
         java = {
-            home = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/current/bin/java",
+            -- home = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.4-tem",
+
+            project = {
+                sourcePaths = { "src" },
+            },
             eclipse = {
                 downloadSources = true,
             },
@@ -48,16 +53,12 @@ local config = {
                 updateBuildConfiguration = "interactive",
                 runtimes = {
                     {
-                        name = "JavaSE-1.8",
-                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/8.0.442.fx-zulu",
-                    },
-                    {
-                        name = "JavaSE-17",
-                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/17.0.14.fx-zulu",
+                        name = "JavaSE-11",
+                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/11.0.28-tem",
                     },
                     {
                         name = "JavaSE-21",
-                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.6.fx-zulu",
+                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.4-tem",
                     },
                 },
             },
@@ -113,27 +114,19 @@ local config = {
             useBlocks = true,
         },
     },
+
     capabilities = require("blink-cmp").get_lsp_capabilities(),
-    flags = {
-        allow_incremental_sync = true,
-    },
-    init_options = {
-        bundles = bundles,
-    },
+    flags = { allow_incremental_sync = true },
+    init_options = { bundles = bundles },
 }
 
--- Needed for debugging
 config["on_attach"] = function(client, bufnr)
-    -- jdtls.setup_dap({ hotcodereplace = 'auto' })
-    -- require('jdtls.dap').setup_dap_main_class_configs()
-
     vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
-            vim.lsp.buf.format({ async = false }) -- Blocking format before saving
+            vim.lsp.buf.format({ async = false })
         end,
     })
 end
 
--- This starts a new client & server, or attaches to an existing client & server based on the `root_dir`.
 jdtls.start_or_attach(config)

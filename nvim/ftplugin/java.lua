@@ -44,7 +44,7 @@ local config = {
             -- home = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.4-tem",
 
             project = {
-                sourcePaths = { "src" },
+                sourcePaths = { "src/main", "src/test" },
             },
             eclipse = {
                 downloadSources = true,

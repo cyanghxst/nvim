@@ -34,18 +34,22 @@ return {
             capabilities = capabilities,
         })
 
-        -- TypeScript
+        -- TypeScript / JavaScript
         lsp.ts_ls.setup({
-            init_options = {
-                plugins = {
-                    {
-                        name = "@vue/typescript-plugin",
-                        location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-                        languages = { "javascript", "typescript", "vue" },
-                    },
-                },
+            capabilities = capabilities,
+            cmd = { "typescript-language-server", "--stdio" },
+            -- root_dir = util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
+            filetypes = {
+                "typescript",
+                "typescriptreact",
+                "typescript.tsx",
+                "javascript",
+                "javascriptreact",
+                "javascript.jsx",
             },
-            filetypes = { "javascript", "typescript", "vue" },
+            on_attach = function(client, _)
+                client.server_capabilities.documentFormattingProvider = false
+            end,
         })
 
         -- Additional Language Servers

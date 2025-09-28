@@ -43,12 +43,9 @@ local config = {
         java = {
             -- home = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.4-tem",
 
-            project = {
-                sourcePaths = { "src/main", "src/test" },
-            },
-            eclipse = {
-                downloadSources = true,
-            },
+            project = { sourcePaths = { "src/main", "src/test" } },
+            eclipse = { downloadSources = true },
+
             configuration = {
                 updateBuildConfiguration = "interactive",
                 runtimes = {
@@ -62,19 +59,13 @@ local config = {
                     },
                 },
             },
-            maven = {
-                downloadSources = true,
-            },
-            implementationsCodeLens = {
-                enabled = true,
-            },
-            referencesCodeLens = {
-                enabled = true,
-            },
-            references = {
-                includeDecompiledSources = true,
-            },
+
+            maven = { downloadSources = true },
+            implementationsCodeLens = { enabled = true },
+            referencesCodeLens = { enabled = true },
+            references = { includeDecompiledSources = true },
             signatureHelp = { enabled = true },
+
             format = {
                 enabled = true,
                 settings = {
@@ -83,6 +74,7 @@ local config = {
                 },
             },
         },
+
         completion = {
             favoriteStaticMembers = {
                 "org.hamcrest.MatcherAssert.assertThat",
@@ -93,6 +85,7 @@ local config = {
                 "java.util.Objects.requireNonNullElse",
                 "org.mockito.Mockito.*",
             },
+
             importOrder = {
                 "java",
                 "javax",
@@ -100,6 +93,7 @@ local config = {
                 "org",
             },
         },
+
         extendedClientCapabilities = jdtls.extendedClientCapabilities,
         sources = {
             organizeImports = {
@@ -107,6 +101,7 @@ local config = {
                 staticStarThreshold = 9999,
             },
         },
+
         codeGeneration = {
             toString = {
                 template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",

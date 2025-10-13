@@ -24,7 +24,11 @@ return {
             dashboard.button("n", " " .. " New File", ":ene | startinsert<CR>"),
             dashboard.button("r", " " .. " Recent", ":Telescope oldfiles<CR>"),
             dashboard.button("u", " " .. " Update", ":Lazy update<CR>"),
-            dashboard.button("s", " " .. " Settings", ":cd ~/.config/nvim | :e lua/plugins/alpha.lua | :NvimTreeToggle<CR> | :lua vim.cmd('wincmd l')<CR>"),
+            dashboard.button(
+                "s",
+                " " .. " Settings",
+                ":cd ~/.config/nvim | :e lua/plugins/alpha.lua | :NvimTreeToggle<CR> | :lua vim.cmd('wincmd l')<CR>"
+            ),
             dashboard.button("q", " " .. " Quit", ":qa!<CR>"),
         }
 
@@ -65,7 +69,6 @@ return {
     end,
 
     config = function(_, dashboard)
-
         -- Close Lazy and re-open when the dashboard is ready
         if vim.o.filetype == "lazy" then
             vim.cmd.close()
@@ -83,10 +86,15 @@ return {
             pattern = "LazyVimStarted",
             callback = function()
                 local stats = require("lazy").stats()
-                local version = "󰋼  " .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
+                local version = "󰋼  "
+                    .. vim.version().major
+                    .. "."
+                    .. vim.version().minor
+                    .. "."
+                    .. vim.version().patch
 
                 local plugins = "  " .. stats.count .. " Plugins"
-                local footer = " " ..version .. "\t  " .. plugins .. "\n"
+                local footer = " " .. version .. "\t  " .. plugins .. "\n"
 
                 -- local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
                 -- local plugins = "  " .. stats.count .. " plugins in " .. ms .. " ms"

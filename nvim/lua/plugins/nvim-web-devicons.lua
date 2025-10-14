@@ -1,6 +1,6 @@
 return {
     "nvim-tree/nvim-web-devicons",
-    enabled = true,
+    enabled = false,
     config = {
         override = {
             js = {

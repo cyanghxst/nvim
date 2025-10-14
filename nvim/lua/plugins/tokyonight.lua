@@ -50,7 +50,7 @@ return {
 
             -- CursorLine
             hl.CursorLineNr = { fg = palette.white }
-            hl.CursorLine = { bg = "NONE" } -- make cursorline transparent
+            hl.CursorLine = { bg = palette.gray3 }
 
             -- Menu
             hl.Pmenu = { bg = "NONE" }

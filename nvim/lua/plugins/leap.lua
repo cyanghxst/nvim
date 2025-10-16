@@ -3,10 +3,9 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     enabled = true,
     config = function()
-        -- local leap = require('leap')
-        -- leap.add_default_mappings()
+        -- require("leap").add_default_mappings()
 
-        --bidirectional search
+        -- bidirectional search
         vim.keymap.set({ "n", "x", "o" }, "s", function()
             local current_window = vim.fn.win_getid()
             require("leap").leap({ target_windows = { current_window } })

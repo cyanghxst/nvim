@@ -27,7 +27,7 @@ return {
                 lualine_c = {},
                 lualine_x = { { "branch", icons_enabled = false } },
                 lualine_y = { "filename" },
-                lualine_z = { { "progress", padding = 0 } },
+                lualine_z = { { "progress", padding = { left = 1, right = 0 } } },
             },
         }
     end,

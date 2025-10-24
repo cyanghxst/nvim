@@ -28,8 +28,8 @@ return {
                 lualine_b = {},
                 lualine_c = {},
                 lualine_x = { { "branch", icons_enabled = false } },
-                lualine_y = { "location", "filename" },
-                lualine_z = { { "progress", padding = { left = 1, right = 0 } } },
+                lualine_y = { "filename" },
+                lualine_z = { { "location", padding = { left = 0, right = 0 } } },
             },
         }
     end,

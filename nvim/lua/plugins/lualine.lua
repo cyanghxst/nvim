@@ -20,13 +20,15 @@ return {
                 theme = minimal_theme,
                 disabled_filetypes = { statusline = { "alpha", "lazy", "NvimTree", "Telescope" } },
                 globalstatus = true,
+                component_separators = "",
+                section_separators = "",
             },
             sections = {
                 lualine_a = {},
                 lualine_b = {},
                 lualine_c = {},
                 lualine_x = { { "branch", icons_enabled = false } },
-                lualine_y = { "filename" },
+                lualine_y = { "location", "filename" },
                 lualine_z = { { "progress", padding = { left = 1, right = 0 } } },
             },
         }

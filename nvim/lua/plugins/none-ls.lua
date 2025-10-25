@@ -7,8 +7,10 @@ return {
     },
 
     event = { "BufReadPre", "BufNewFile" },
+
     config = function()
         require("mason").setup()
+
         require("mason-null-ls").setup({
             ensure_installed = {
                 "stylua", -- lua

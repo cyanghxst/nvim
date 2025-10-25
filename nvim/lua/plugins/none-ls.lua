@@ -13,7 +13,7 @@ return {
             ensure_installed = {
                 "stylua", -- lua
                 "prettierd", -- js/ts/css/html/json/md
-                -- eslint_d here
+                -- "eslint_d", -- js/ts
             },
 
             automatic_installation = true, -- formatting and diagnostics via none-ls

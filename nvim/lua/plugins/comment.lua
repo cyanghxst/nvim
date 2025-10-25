@@ -6,26 +6,26 @@ return {
         sticky = true,
         ignore = nil,
 
-        ---LHS of toggle mappings in NORMAL mode
+        -- normal mode
         toggler = {
             line = "gcc",
             block = "gbc",
         },
 
-        ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+        -- normal and visual mode
         opleader = {
             line = "gc",
             block = "gb",
         },
 
-        ---LHS of extra mappings
+        --- extra mappings
         extra = {
             above = "gcO",
             below = "gco",
             eol = "gcA",
         },
 
-        ---Enable keybindings
+        -- enable keybindings
         mappings = {
             basic = true,
             extra = true,

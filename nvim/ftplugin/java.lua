@@ -118,10 +118,21 @@ local config = {
 }
 
 config["on_attach"] = function(client, bufnr)
+    -- use only jdtls to format java
+    local java_group = vim.api.nvim_create_augroup("FormatOnSaveJdtls", { clear = false })
+    vim.api.nvim_clear_autocmds({ group = java_group, buffer = bufnr })
+
     vim.api.nvim_create_autocmd("BufWritePre", {
+        group = java_group,
         buffer = bufnr,
         callback = function()
-            vim.lsp.buf.format({ async = false })
+            vim.lsp.buf.format({
+                bufnr = bufnr,
+                async = false,
+                filter = function(c)
+                    return c.name == "jdtls"
+                end,
+            })
         end,
     })
 end

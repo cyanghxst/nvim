@@ -4,6 +4,7 @@ vim.filetype.add({
         [".zshrc"] = "zsh",
         ["zprofile"] = "zsh",
         ["zshrc"] = "zsh",
+        ["gitconfig"] = "gitconfig",
     },
     extension = {
         zsh = "zsh",

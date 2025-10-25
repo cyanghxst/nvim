@@ -13,11 +13,6 @@ return {
             ensure_installed = {
                 "stylua", -- lua
                 "prettierd", -- js/ts/css/html/json/md
-                "google_java_format", -- java formatter
-
-                -- diagnostics & lint
-                "checkstyle", -- java style checker
-
                 -- eslint_d here
             },
 

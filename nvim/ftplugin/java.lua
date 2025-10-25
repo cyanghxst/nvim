@@ -14,6 +14,9 @@ vim.list_extend(
     vim.split(vim.fn.glob(vim.env.HOME .. "/.local/share/nvim/mason/share/java-test/*.jar", 1), "\n")
 )
 
+local formatter_path = vim.env.HOME .. "/.config/java/jdtls-format.xml"
+local formatter_uri = "file://" .. formatter_path -- jdtls expects URI
+
 local config = {
     cmd = {
         "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/current/bin/java",
@@ -66,10 +69,11 @@ local config = {
             references = { includeDecompiledSources = true },
             signatureHelp = { enabled = true },
 
+            -- formatter config
             format = {
                 enabled = true,
                 settings = {
-                    url = vim.env.HOME .. "/.config/jdtls/jdtls-format.xml",
+                    url = formatter_uri,
                     profile = "GoogleStyle",
                 },
             },

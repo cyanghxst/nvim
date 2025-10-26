@@ -74,6 +74,8 @@ local config = {
 
             configuration = {
                 updateBuildConfiguration = "interactive",
+
+                -- for project source/target levels (not jdtls runtime)
                 runtimes = {
                     {
                         name = "JavaSE-11",
@@ -92,7 +94,6 @@ local config = {
             references = { includeDecompiledSources = true },
             signatureHelp = { enabled = true },
 
-            -- formatter config
             format = {
                 enabled = true,
                 settings = {
@@ -143,7 +144,7 @@ local config = {
 }
 
 config["on_attach"] = function(client, bufnr)
-    -- use only jdtls to format java
+    -- only use jdtls formats Java on save
     local java_group = vim.api.nvim_create_augroup("FormatOnSaveJdtls", { clear = false })
     vim.api.nvim_clear_autocmds({ group = java_group, buffer = bufnr })
 

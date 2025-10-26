@@ -1,41 +1,66 @@
 local jdtls = require("jdtls")
+
+-----------
+-- paths --
+-----------
+
+local home = vim.env.HOME
+local java_21 = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.4-tem/bin/java"
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:t")
-local workspace_dir = vim.env.HOME .. "/.jdtls-workspace/" .. project_name
-local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" })
+local workspace_dir = home .. "/.jdtls-workspace/" .. project_name
+
+local root_dir = require("jdtls.setup").find_root({
+    ".git",
+    "mvnw",
+    "gradlew",
+    "pom.xml",
+    "build.gradle",
+})
+
+local jdtls_base = home .. "/.local/share/nvim/mason/packages/jdtls" -- mason jdtls install root
+local launcher_path = vim.fn.glob(jdtls_base .. "/plugins/org.eclipse.equinox.launcher_*.jar")
+local lombok_path = home .. "/.local/share/nvim/mason/share/jdtls/lombok.jar"
 
 local bundles = {
-    vim.fn.glob(
-        vim.env.HOME .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"
-    ),
+    vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
 }
 
-vim.list_extend(
-    bundles,
-    vim.split(vim.fn.glob(vim.env.HOME .. "/.local/share/nvim/mason/share/java-test/*.jar", 1), "\n")
-)
+vim.list_extend(bundles, vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-test/*.jar", 1), "\n"))
 
-local formatter_path = vim.env.HOME .. "/.config/java/jdtls-format.xml"
-local formatter_uri = "file://" .. formatter_path -- jdtls expects URI
+---------------
+-- formatter --
+---------------
+
+local formatter_path = home .. "/.config/java/jdtls-format.xml"
+local formatter_uri = "file://" .. formatter_path
+
+------------
+-- config --
+------------
 
 local config = {
     cmd = {
-        "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/current/bin/java",
+        java_21, -- seems jdtls doesn't like old JVMs ¯\_(ツ)_/¯
+
         "-Declipse.application=org.eclipse.jdt.ls.core.id1",
         "-Dosgi.bundles.defaultStartLevel=4",
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
         "-Dlog.protocol=true",
         "-Dlog.level=ALL",
-        "-javaagent:" .. vim.env.HOME .. "/.local/share/nvim/mason/share/jdtls/lombok.jar",
+
+        "-javaagent:" .. lombok_path,
         "-Xmx4g",
+
         "--add-modules=ALL-SYSTEM",
         "--add-opens",
         "java.base/java.util=ALL-UNNAMED",
         "--add-opens",
         "java.base/java.lang=ALL-UNNAMED",
+
         "-jar",
-        vim.env.HOME .. "/.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher.jar",
+        launcher_path,
         "-configuration",
-        vim.env.HOME .. "/.local/share/nvim/mason/packages/jdtls/config_mac_arm",
+        jdtls_base .. "/config_mac_arm",
         "-data",
         workspace_dir,
     },

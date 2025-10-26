@@ -113,7 +113,6 @@ local config = {
                 "java.util.Objects.requireNonNullElse",
                 "org.mockito.Mockito.*",
             },
-
             importOrder = {
                 "java",
                 "javax",
@@ -123,6 +122,7 @@ local config = {
         },
 
         extendedClientCapabilities = jdtls.extendedClientCapabilities,
+
         sources = {
             organizeImports = {
                 starThreshold = 9999,

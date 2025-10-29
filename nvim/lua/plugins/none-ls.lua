@@ -14,7 +14,8 @@ return {
         require("mason-null-ls").setup({
             ensure_installed = {
                 "stylua", -- lua
-                "prettierd", -- js/ts/css/html/json/md
+                "prettierd", -- js/ts/css/html/json/md/yaml
+                "yamlfmt",
                 -- "eslint_d", -- js/ts
             },
             automatic_installation = true,
@@ -36,7 +37,10 @@ return {
                 -- Formatters --
                 ----------------
                 null_ls.builtins.formatting.stylua,
-                null_ls.builtins.formatting.prettierd or null_ls.builtins.formatting.prettier,
+                null_ls.builtins.formatting.yamlfmt,
+                (null_ls.builtins.formatting.prettierd or null_ls.builtins.formatting.prettier).with({
+                    filetypes = { "javascript", "typescript", "css", "html", "json", "markdown", "yaml" },
+                }),
 
                 -----------------
                 -- Diagnostics --

@@ -16,14 +16,11 @@ return {
                 "stylua", -- lua
                 "prettierd", -- js/ts/css/html/json/md/yaml
                 "yamlfmt",
-                -- "eslint_d", -- js/ts
+                -- "eslint_d",   -- js/ts
             },
             automatic_installation = true,
             handlers = {
-                -- default handler: do normal setup for everything else
                 function() end,
-
-                -- custom handler for checkstyle: do nothing here
                 checkstyle = function() end,
             },
         })
@@ -36,10 +33,28 @@ return {
                 ----------------
                 -- Formatters --
                 ----------------
-                null_ls.builtins.formatting.stylua,
+
+                -- stylua
+                null_ls.builtins.formatting.stylua.with({
+                    -- force indent width to 4
+                    extra_args = {
+                        "--indent-width",
+                        "4",
+                        "--indent-type",
+                        "Spaces",
+                    },
+                }),
+
+                -- yamlfmt (via .yamlfmt.yaml)
                 null_ls.builtins.formatting.yamlfmt,
+
+                -- prettierd/prettier
                 (null_ls.builtins.formatting.prettierd or null_ls.builtins.formatting.prettier).with({
                     filetypes = { "javascript", "typescript", "css", "html", "json", "markdown", "yaml" },
+                    extra_args = {
+                        "--tab-width",
+                        "4",
+                    },
                 }),
 
                 -----------------
@@ -48,16 +63,12 @@ return {
                 null_ls.builtins.diagnostics.checkstyle.with({
                     extra_args = { "-c", vim.env.HOME .. "/.config/java/checkstyle.xml" },
                 }),
-
-                -- js/ts diagnostics:
                 -- null_ls.builtins.diagnostics.eslint_d,
                 -- null_ls.builtins.code_actions.eslint_d,
             },
 
             on_attach = function(client, bufnr)
                 local ft = vim.bo[bufnr].filetype
-
-                -- use null-ls to format everything except java
                 if client.name == "null-ls" and client.supports_method("textDocument/formatting") and ft ~= "java" then
                     vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
                     vim.api.nvim_create_autocmd("BufWritePre", {

@@ -88,6 +88,9 @@ return {
             hl.NvimTreeRootFolder = { fg = palette.bone, bold = true }
             hl.NvimTreeSpecialFile = { fg = palette.bone, bold = true }
             hl.NvimTreeExecFile = { fg = palette.red }
+
+            -- Leap
+            hl.LeapLabel = { fg = palette.green }
         end,
     },
 

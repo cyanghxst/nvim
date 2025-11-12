@@ -25,7 +25,7 @@ return {
         local capabilities = require("blink.cmp").get_lsp_capabilities()
 
         require("mason-lspconfig").setup({
-            ensure_installed = { "html", "lua_ls", "pyright", "jdtls", "clangd", "marksman" },
+            ensure_installed = { "html", "lua_ls", "pyright", "jdtls", "jsonls", "clangd", "marksman" },
             handlers = {
                 function(server_name) -- default handler
                     require("lspconfig")[server_name].setup({
@@ -53,6 +53,17 @@ return {
                         cmd = { "clangd", "--fallback-style=webkit" },
                         filetypes = { "cpp", "c", "objc", "objcpp" },
                         capabilities = capabilities,
+                    })
+                end,
+
+                json_ls = function()
+                    require("lspconfig").jsonls.setup({
+                        settings = {
+                            json = {
+                                schemas = require("schemastore").json.schemas(),
+                                validate = { enable = true },
+                            },
+                        },
                     })
                 end,
 

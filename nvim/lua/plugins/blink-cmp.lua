@@ -87,15 +87,15 @@ return {
             default = { "lsp", "path", "snippets", "buffer" },
             providers = {
                 lsp = {
-                    min_keyword_length = 1,
-                    score_offset = 0,
+                    min_keyword_length = 0,
+                    score_offset = 100,
                 },
                 path = {
-                    min_keyword_length = 0,
+                    min_keyword_length = 1,
                 },
                 snippets = {
                     min_keyword_length = 3,
-                    score_offset = 100,
+                    score_offset = 0,
                 },
                 buffer = {
                     min_keyword_length = 5,

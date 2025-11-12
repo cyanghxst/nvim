@@ -14,9 +14,9 @@ return {
         require("mason-null-ls").setup({
             ensure_installed = {
                 "stylua", -- lua
-                "prettierd", -- js/ts/css/html/json/md/yaml
+                "prettier", -- js/ts/css/html/json/md/yaml
                 "yamlfmt",
-                -- "eslint_d",   -- js/ts
+                "eslint_d", -- js/ts
             },
             automatic_installation = true,
             handlers = {
@@ -48,9 +48,18 @@ return {
                 -- yamlfmt (via .yamlfmt.yaml)
                 null_ls.builtins.formatting.yamlfmt,
 
-                -- prettierd/prettier
-                (null_ls.builtins.formatting.prettierd or null_ls.builtins.formatting.prettier).with({
-                    filetypes = { "javascript", "typescript", "css", "html", "json", "markdown", "yaml" },
+                -- prettier
+                null_ls.builtins.formatting.prettier.with({
+                    filetypes = {
+                        "javascript",
+                        "typescript",
+                        "css",
+                        "html",
+                        "json",
+                        "jsonc",
+                        "markdown",
+                        "yaml",
+                    },
                     extra_args = {
                         "--tab-width",
                         "4",
@@ -60,11 +69,13 @@ return {
                 -----------------
                 -- Diagnostics --
                 -----------------
+
                 null_ls.builtins.diagnostics.checkstyle.with({
                     extra_args = { "-c", vim.env.HOME .. "/.config/java/checkstyle.xml" },
                 }),
-                -- null_ls.builtins.diagnostics.eslint_d,
-                -- null_ls.builtins.code_actions.eslint_d,
+
+                null_ls.builtins.diagnostics.eslint_d,
+                null_ls.builtins.code_actions.eslint_d,
             },
 
             on_attach = function(client, bufnr)

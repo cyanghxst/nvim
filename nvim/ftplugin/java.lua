@@ -135,6 +135,8 @@ local config = {
                 template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
             },
             useBlocks = true,
+            getters = { enabled = true },
+            setters = { enabled = true },
         },
     },
 

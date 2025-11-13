@@ -91,21 +91,21 @@ keymap("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "Find Oldfiles
 -- LSP Keymaps
 -- ------------
 
-keymap("n", "<leader>gg", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-keymap("n", "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-keymap("n", "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-keymap("n", "<leader>gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-keymap("n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-keymap("n", "<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-keymap({ "n", "v" }, "<leader>gf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
-keymap("n", "<leader>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-keymap("n", "<leader>gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-keymap("n", "<leader>gp", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-keymap("n", "<leader>gn", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-keymap("n", "<leader>tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-keymap("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", opts)
+keymap("n", "<leader>gg", "<cmd>lua vim.lsp.buf.hover()<CR>", opts, { desc = "Hover" })
+keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts, { desc = "Go to definition" })
+keymap("n", "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, { desc = "Go to declaration" })
+keymap("n", "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts, { desc = "Go to implementation" })
+keymap("n", "<leader>gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts, { desc = "Go to type definition" })
+keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts, { desc = "Go to references" })
+keymap("n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, { desc = "Go to signature" })
+keymap("n", "<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts, { desc = "Rename symbol" })
+keymap({ "n", "v" }, "<leader>gf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts, { desc = "Format" })
+keymap("n", "<leader>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts, { desc = "Code action" })
+keymap("n", "<leader>gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts, { desc = "Open float" })
+keymap("n", "<leader>gp", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts, { desc = "Go to previous" })
+keymap("n", "<leader>gn", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts, { desc = "Go to next" })
+keymap("n", "<leader>tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts, { desc = "Document symbol" })
+keymap("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", opts, { desc = "Completion" })
 
 -- --------------------------
 -- Filetype-Specific Keymaps

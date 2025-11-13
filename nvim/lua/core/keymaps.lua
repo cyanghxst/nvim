@@ -1,32 +1,32 @@
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- ============================
+-- ----------------
 -- General Keymaps
--- ============================
+-- ----------------
 
--- Plugin management
+-- plugin management
 keymap("n", "<leader>l", "<cmd>Lazy<cr>", opts)
 
--- Search and highlights
+-- search and highlights
 keymap("n", "<esc>", "<cmd>nohlsearch<cr>", opts)
 
--- Duplicate line and comment
+-- duplicate line and comment
 keymap("n", "yc", "yygccp", { remap = true, silent = true })
 
--- Block movement
+-- block movement
 keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
 keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
 
--- Indent blocks
+-- indent blocks
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
--- Better line navigation
+-- better line navigation
 keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Clear highlight search and toggle floating windows
+-- clear highlight search and toggle floating windows
 keymap("n", "<cr>", function()
     for _, win in ipairs(vim.api.nvim_list_wins()) do
         if vim.api.nvim_win_get_config(win).relative ~= "" then
@@ -41,28 +41,28 @@ keymap("n", "<cr>", function()
     end
 end, { desc = "Clear Highlights or Toggle Diagnostics" })
 
--- ============================
+-- ---------------------------
 -- Window & Buffer Navigation
--- ============================
+-- ---------------------------
 
--- Window navigation
+-- window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
--- Buffer navigation
+-- buffer navigation
 keymap("n", "H", "<cmd>bprevious<cr>", opts)
 keymap("n", "L", "<cmd>bnext<cr>", opts)
 
--- ============================
+-- ------------------------
 -- Plugin-Specific Keymaps
--- ============================
+-- ------------------------
 
--- NvimTree
+-- nvimtree
 keymap("n", "<leader>s", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle" })
 
--- Bufremove
+-- bufremove
 keymap("n", "<leader>ww", function()
     require("mini.bufremove").delete(0, false)
 end, { desc = "Delete Buffer" })
@@ -70,9 +70,9 @@ keymap("n", "<leader>wq", function()
     require("mini.bufremove").delete(0, true)
 end, { desc = "Delete Buffer (Force)" })
 
--- ============================
+-- ------------------
 -- Telescope Keymaps
--- ============================
+-- ------------------
 
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find Files" })
 keymap(
@@ -87,9 +87,9 @@ keymap("n", "<leader>fh", "<cmd>Telescope highlights<CR>", { desc = "Find Highli
 keymap("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Find Buffers" })
 keymap("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "Find Oldfiles" })
 
--- ============================
+-- ------------
 -- LSP Keymaps
--- ============================
+-- ------------
 
 keymap("n", "<leader>gg", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -107,9 +107,9 @@ keymap("n", "<leader>gn", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 keymap("n", "<leader>tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
 keymap("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", opts)
 
--- ============================
+-- --------------------------
 -- Filetype-Specific Keymaps
--- ============================
+-- --------------------------
 
 keymap("n", "<leader>go", function()
     if vim.bo.filetype == "java" then

@@ -1,12 +1,17 @@
 return {
     "L3MON4D3/LuaSnip",
-    version = "v2.*",
-    build = "make install_jsregexp",
-    dependencies = { "rafamadriz/friendly-snippets" },
+    dependencies = {
+        "rafamadriz/friendly-snippets",
+    },
+    opts = {
+        history = true,
+        delete_check_events = "TextChanged",
+    },
     config = function()
-        local vscode = require("luasnip.loaders.from_vscode")
+        local ls = require("luasnip")
+        local vscode = require("lua.plugins.laoders.from_vscode")
 
         vscode.lazy_load()
-        vscode.lazy_load({ paths = vim.fn.stdpath("config") .. "/snippets" })
+        ls.filetype_extend("java", "javadoc")
     end,
 }

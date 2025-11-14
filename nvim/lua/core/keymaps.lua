@@ -128,3 +128,28 @@ keymap("n", "<leader>tc", function()
         require("jdtls").test_class()
     end
 end, opts)
+
+-- ----------
+-- LuaSnip
+-- ----------
+
+keymap({ "i", "s" }, "<C-k>", function()
+    local ls = require("luasnip")
+    if ls.expand_or_jumpable() then
+        ls.expand_or_jump()
+    end
+end, { silent = true, desc = "Expand or jump snippet" })
+
+keymap({ "i", "s" }, "<C-j>", function()
+    local ls = require("luasnip")
+    if ls.jumpable(-1) then
+        ls.jump(-1)
+    end
+end, { silent = true, desc = "Jump to previous snippet placeholder" })
+
+keymap("i", "<C-l>", function()
+    local ls = require("luasnip")
+    if ls.choice_active() then
+        ls.change_choice(1)
+    end
+end, { silent = true, desc = "Cycle snippet choices" })

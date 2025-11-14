@@ -73,9 +73,6 @@ return {
                 null_ls.builtins.diagnostics.checkstyle.with({
                     extra_args = { "-c", vim.env.HOME .. "/.config/java/checkstyle.xml" },
                 }),
-
-                null_ls.builtins.diagnostics.eslint_d,
-                null_ls.builtins.code_actions.eslint_d,
             },
 
             on_attach = function(client, bufnr)

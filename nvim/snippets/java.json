@@ -35,9 +35,7 @@
 
     "System.out.printf": {
         "prefix": "printf",
-        "body": [
-            "System.out.printf(\"${1:%s}\\n\", ${2:value});$0"
-        ],
+        "body": ["System.out.printf(\"${1:%s}\\n\", ${2:value});$0"],
         "description": "Insert a System.out.printf statement"
     }
 }

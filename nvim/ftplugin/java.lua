@@ -119,6 +119,7 @@ local config = {
                 "com",
                 "org",
             },
+            postfix = { enabled = true },
         },
 
         extendedClientCapabilities = jdtls.extendedClientCapabilities,
@@ -135,6 +136,7 @@ local config = {
                 template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
             },
             useBlocks = true,
+            generateConstructors = { enabled = true },
             getters = { enabled = true },
             setters = { enabled = true },
         },

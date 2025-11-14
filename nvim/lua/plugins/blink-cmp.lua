@@ -88,7 +88,7 @@ return {
             providers = {
                 lsp = {
                     min_keyword_length = 0,
-                    score_offset = 100,
+                    -- score_offset = 100,
                 },
                 path = {
                     min_keyword_length = 1,

@@ -3,7 +3,6 @@ return {
     lazy = true,
     dependencies = {
         { "nvzone/volt", lazy = true },
-        { "nvzone/minty", lazy = true },
     },
 
     -- Load when you actually need it; we’ll use a keymap to trigger opening
@@ -13,6 +12,8 @@ return {
     },
 
     config = function()
+        require("config.nvmenu").setup()
+
         -- Keyboard: Ctrl-t to open the default menu
         vim.keymap.set("n", "<C-t>", function()
             require("menu").open("default")
@@ -37,7 +38,7 @@ return {
             local options = (ft == "NvimTree") and "nvimtree" or "default"
 
             -- Open with mouse mode so items are clickable
-            menu.open(options, { mouse = true, border = false })
+            menu.open(options, { mouse = true, border = true })
         end, { desc = "Open menu (context/right-click)" })
     end,
 }

@@ -1,0 +1,127 @@
+{
+    "Function Declaration": {
+        "prefix": "fn",
+        "body": [
+            "function ${1:function_name}(${2:args}) {",
+            "\t${3:// body}",
+            "}$0"
+        ],
+        "description": "Function declaration"
+    },
+
+    "Arrow Function": {
+        "prefix": "af",
+        "body": [
+            "const ${1:functionName} = (${2:args}) => {",
+            "\t${3:// body}",
+            "};$0"
+        ],
+        "description": "Arrow function"
+    },
+
+    "ES6 Class": {
+        "prefix": "class",
+        "body": [
+            "class ${1:ClassName} {",
+            "\tconstructor(${2:args}) {",
+            "\t\t${3:// body}",
+            "\t}",
+            "\t",
+            "\t${4:methodName}(${5:args}) {",
+            "\t\t${6:// body}",
+            "\t}",
+            "}$0"
+        ],
+        "description": "ES6 class"
+    },
+
+    "If Statement": {
+        "prefix": "if",
+        "body": [
+            "if (${1:condition}) {",
+            "\t${2:// body}",
+            "}$0"
+        ],
+        "description": "If statement"
+    },
+
+    "If-Else": {
+        "prefix": "ifelse",
+        "body": [
+            "if (${1:condition}) {",
+            "\t${2:// true}",
+            "} else {",
+            "\t${3:// false}",
+            "}$0"
+        ],
+        "description": "If-else statement"
+    },
+
+    "For Loop": {
+        "prefix": "for",
+        "body": [
+            "for (let ${1:i} = 0; ${1:i} < ${2:array}.length; ${1:i}++) {",
+            "\t${3:// body}",
+            "}$0"
+        ],
+        "description": "For loop"
+    },
+
+    "ForEach": {
+        "prefix": "foreach",
+        "body": [
+            "${1:array}.forEach((${2:item}) => {",
+            "\t${3:// body}",
+            "});$0"
+        ],
+        "description": "ForEach loop"
+    },
+
+    "Try Catch": {
+        "prefix": "try",
+        "body": [
+            "try {",
+            "\t${1:// body}",
+            "} catch (${2:error}) {",
+            "\t${3:// handle error}",
+            "}$0"
+        ],
+        "description": "Try-catch block"
+    },
+
+    "Promise": {
+        "prefix": "promise",
+        "body": [
+            "new Promise((${1:resolve}, ${2:reject}) => {",
+            "\t${3:// body}",
+            "})$0"
+        ],
+        "description": "Promise"
+    },
+
+    "Async Function": {
+        "prefix": "async",
+        "body": [
+            "async function ${1:functionName}(${2:args}) {",
+            "\t${3:// body}",
+            "}$0"
+        ],
+        "description": "Async function"
+    },
+
+    "Await": {
+        "prefix": "await",
+        "body": [
+            "const ${1:result} = await ${2:promise};$0"
+        ],
+        "description": "Await expression"
+    },
+
+    "Console Log": {
+        "prefix": "log",
+        "body": [
+            "console.log(${1:value});$0"
+        ],
+        "description": "Console log"
+    }
+}

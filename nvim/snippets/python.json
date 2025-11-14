@@ -1,0 +1,97 @@
+{
+    "Function Definition": {
+        "prefix": "def",
+        "body": [
+            "def ${1:function_name}(${2:args}):",
+            "\t\"\"\"${3:docstring}\"\"\"",
+            "\t${4:pass}$0"
+        ],
+        "description": "Function definition with docstring"
+    },
+
+    "Class Definition": {
+        "prefix": "class",
+        "body": [
+            "class ${1:ClassName}${2:(object)}:",
+            "\t\"\"\"${3:docstring}\"\"\"",
+            "\t",
+            "\tdef __init__(self${4:, args}):",
+            "\t\t${5:pass}$0"
+        ],
+        "description": "Class definition"
+    },
+
+    "If Statement": {
+        "prefix": "if",
+        "body": [
+            "if ${1:condition}:",
+            "\t${2:pass}$0"
+        ],
+        "description": "If statement"
+    },
+
+    "If-Else": {
+        "prefix": "ifelse",
+        "body": [
+            "if ${1:condition}:",
+            "\t${2:pass}",
+            "else:",
+            "\t${3:pass}$0"
+        ],
+        "description": "If-else statement"
+    },
+
+    "For Loop": {
+        "prefix": "for",
+        "body": [
+            "for ${1:item} in ${2:iterable}:",
+            "\t${3:pass}$0"
+        ],
+        "description": "For loop"
+    },
+
+    "While Loop": {
+        "prefix": "while",
+        "body": [
+            "while ${1:condition}:",
+            "\t${2:pass}$0"
+        ],
+        "description": "While loop"
+    },
+
+    "Try Except": {
+        "prefix": "try",
+        "body": [
+            "try:",
+            "\t${1:pass}",
+            "except ${2:Exception} as ${3:e}:",
+            "\t${4:pass}$0"
+        ],
+        "description": "Try-except block"
+    },
+
+    "Main Block": {
+        "prefix": "main",
+        "body": [
+            "if __name__ == \"__main__\":",
+            "\t${1:main()}$0"
+        ],
+        "description": "Main entry point"
+    },
+
+    "Lambda": {
+        "prefix": "lambda",
+        "body": [
+            "lambda ${1:args}: ${2:expression}$0"
+        ],
+        "description": "Lambda function"
+    },
+
+    "List Comprehension": {
+        "prefix": "listcomp",
+        "body": [
+            "[${1:expression} for ${2:item} in ${3:iterable}${4: if condition}]$0"
+        ],
+        "description": "List comprehension"
+    }
+}

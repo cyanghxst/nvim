@@ -1,0 +1,98 @@
+{
+    "Interface": {
+        "prefix": "interface",
+        "body": [
+            "interface ${1:InterfaceName} {",
+            "\t${2:property}: ${3:type};",
+            "}$0"
+        ],
+        "description": "TypeScript interface"
+    },
+
+    "Type Alias": {
+        "prefix": "type",
+        "body": [
+            "type ${1:TypeName} = {",
+            "\t${2:property}: ${3:type};",
+            "};$0"
+        ],
+        "description": "Type alias"
+    },
+
+    "Generic Function": {
+        "prefix": "generic",
+        "body": [
+            "function ${1:functionName}<${2:T}>(${3:arg}: ${2:T}): ${4:T} {",
+            "\t${5:// body}",
+            "}$0"
+        ],
+        "description": "Generic function"
+    },
+
+    "Typed Function": {
+        "prefix": "tfn",
+        "body": [
+            "function ${1:functionName}(${2:arg}: ${3:type}): ${4:returnType} {",
+            "\t${5:// body}",
+            "}$0"
+        ],
+        "description": "Typed function"
+    },
+
+    "Typed Arrow Function": {
+        "prefix": "taf",
+        "body": [
+            "const ${1:functionName} = (${2:arg}: ${3:type}): ${4:returnType} => {",
+            "\t${5:// body}",
+            "};$0"
+        ],
+        "description": "Typed arrow function"
+    },
+
+    "Enum": {
+        "prefix": "enum",
+        "body": [
+            "enum ${1:EnumName} {",
+            "\t${2:OPTION_A} = \"OPTION_A\",",
+            "\t${3:OPTION_B} = \"OPTION_B\",",
+            "}$0"
+        ],
+        "description": "Enum"
+    },
+
+    "Class": {
+        "prefix": "class",
+        "body": [
+            "class ${1:ClassName} {",
+            "\tprivate ${2:property}: ${3:type};",
+            "\t",
+            "\tconstructor(${4:args}) {",
+            "\t\t${5:// body}",
+            "\t}",
+            "\t",
+            "\tpublic ${6:method}(${7:args}): ${8:returnType} {",
+            "\t\t${9:// body}",
+            "\t}",
+            "}$0"
+        ],
+        "description": "Typed class"
+    },
+
+    "React Component": {
+        "prefix": "component",
+        "body": [
+            "interface ${1:ComponentName}Props {",
+            "\t${2:prop}: ${3:type};",
+            "}",
+            "",
+            "export const ${1:ComponentName} = ({ ${2:prop} }: ${1:ComponentName}Props) => {",
+            "\treturn (",
+            "\t\t<div>",
+            "\t\t\t${4:content}",
+            "\t\t</div>",
+            "\t);",
+            "};$0"
+        ],
+        "description": "React functional component with props"
+    }
+}

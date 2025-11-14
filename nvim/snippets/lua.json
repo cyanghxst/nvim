@@ -1,0 +1,104 @@
+{
+    "Local Function": {
+        "prefix": "local",
+        "body": [
+            "local ${1:function_name} = function(${2:args})",
+            "\t${3:-- body}",
+            "end",
+            "$0"
+        ],
+        "description": "Local function definition"
+    },
+
+    "Module Return": {
+        "prefix": "return",
+        "body": [
+            "return {",
+            "\t${1:-- module content}",
+            "}$0"
+        ],
+        "description": "Return table for module"
+    },
+
+    "For Loop": {
+        "prefix": "for",
+        "body": [
+            "for ${1:i} = ${2:start}, ${3:end} do",
+            "\t${4:-- body}",
+            "end$0"
+        ],
+        "description": "Numeric for loop"
+    },
+
+    "For Each Loop": {
+        "prefix": "foreach",
+        "body": [
+            "for ${1:key}, ${2:value} in pairs(${3:table}) do",
+            "\t${4:-- body}",
+            "end$0"
+        ],
+        "description": "For each loop with pairs"
+    },
+
+    "If Statement": {
+        "prefix": "if",
+        "body": [
+            "if ${1:condition} then",
+            "\t${2:-- true branch}",
+            "end$0"
+        ],
+        "description": "If statement"
+    },
+
+    "Conditional": {
+        "prefix": "ifelse",
+        "body": [
+            "if ${1:condition} then",
+            "\t${2:-- true branch}",
+            "else",
+            "\t${3:-- false branch}",
+            "end$0"
+        ],
+        "description": "If-else statement"
+    },
+
+    "Require": {
+        "prefix": "req",
+        "body": [
+            "local ${1:module_name} = require(\"${2:path.to.module}\")$0"
+        ],
+        "description": "Require a module"
+    },
+
+    "Keymap": {
+        "prefix": "keymap",
+        "body": [
+            "vim.keymap.set(\"${1:mode}\", \"${2:keys}\", ${3:action}, { ${4:desc = \"${5:description}\"} })$0"
+        ],
+        "description": "Vim keymap set"
+    },
+
+    "Autocmd": {
+        "prefix": "autocmd",
+        "body": [
+            "vim.api.nvim_create_autocmd(\"${1:Event}\", {",
+            "\tgroup = ${2:augroup},",
+            "\tbuffer = ${3:bufnr},",
+            "\tcallback = function()",
+            "\t\t${4:-- body}",
+            "\tend,",
+            "})$0"
+        ],
+        "description": "Create autocommand"
+    },
+
+    "Table": {
+        "prefix": "tbl",
+        "body": [
+            "local ${1:name} = {",
+            "\t${2:key = value,}",
+            "}$0"
+        ],
+        "description": "Table definition"
+    }
+}

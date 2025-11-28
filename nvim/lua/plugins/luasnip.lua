@@ -9,9 +9,9 @@ return {
     },
     config = function()
         local ls = require("luasnip")
-        local vscode = require("lua.plugins.laoders.from_vscode")
+        local vscode = require("luasnip.loaders.from_vscode")
 
         vscode.lazy_load()
-        ls.filetype_extend("java", "javadoc")
+        ls.filetype_extend("java", { "javadoc" })
     end,
 }

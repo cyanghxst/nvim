@@ -4,7 +4,7 @@ return {
 
     opts = {
         style = "night",
-        transparent = true,
+        transparent = false,
         terminal_colors = true,
         styles = {
             comments = { italic = true },
@@ -16,6 +16,10 @@ return {
         hide_inactive_statusline = true,
         dim_inactive = false,
         lualine_bold = false,
+
+        on_colors = function(colors)
+            colors.bg = "#16151d"
+        end,
 
         on_highlights = function(hl, _)
             local palette = {

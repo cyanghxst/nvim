@@ -28,52 +28,56 @@ return {
         local null_ls = require("null-ls")
         local format_group = vim.api.nvim_create_augroup("NoneLsFormatOnSave", { clear = false })
 
-        null_ls.setup({
-            sources = {
-                ----------------
-                -- Formatters --
-                ----------------
+        local sources = {
+            ----------------
+            -- Formatters --
+            ----------------
 
-                -- stylua
-                null_ls.builtins.formatting.stylua.with({
-                    -- force indent width to 4
-                    extra_args = {
-                        "--indent-width",
-                        "4",
-                        "--indent-type",
-                        "Spaces",
-                    },
-                }),
+            -- stylua
+            null_ls.builtins.formatting.stylua.with({
+                -- force indent width to 4
+                extra_args = {
+                    "--indent-width",
+                    "4",
+                    "--indent-type",
+                    "Spaces",
+                },
+            }),
 
-                -- yamlfmt (via .yamlfmt.yaml)
-                null_ls.builtins.formatting.yamlfmt,
+            -- yamlfmt (via .yamlfmt.yaml)
+            null_ls.builtins.formatting.yamlfmt,
 
-                -- prettier
-                null_ls.builtins.formatting.prettier.with({
-                    filetypes = {
-                        "javascript",
-                        "typescript",
-                        "css",
-                        "html",
-                        "json",
-                        "jsonc",
-                        "markdown",
-                        "yaml",
-                    },
-                    extra_args = {
-                        "--tab-width",
-                        "4",
-                    },
-                }),
+            -- prettier
+            null_ls.builtins.formatting.prettier.with({
+                filetypes = {
+                    "javascript",
+                    "typescript",
+                    "css",
+                    "html",
+                    "json",
+                    "jsonc",
+                    "markdown",
+                    "yaml",
+                },
+                extra_args = {
+                    "--tab-width",
+                    "4",
+                },
+            }),
+        }
 
-                -----------------
-                -- Diagnostics --
-                -----------------
-
+        -- Add checkstyle only if it's available
+        if vim.fn.executable("checkstyle") == 1 then
+            table.insert(
+                sources,
                 null_ls.builtins.diagnostics.checkstyle.with({
                     extra_args = { "-c", vim.env.HOME .. "/.config/java/checkstyle.xml" },
-                }),
-            },
+                })
+            )
+        end
+
+        null_ls.setup({
+            sources = sources,
 
             on_attach = function(client, bufnr)
                 local ft = vim.bo[bufnr].filetype

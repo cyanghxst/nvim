@@ -49,10 +49,28 @@ return {
                 end,
 
                 clangd = function()
+                    local util = require("lspconfig.util")
+
                     require("lspconfig").clangd.setup({
                         cmd = { "clangd", "--fallback-style=webkit" },
                         filetypes = { "cpp", "c", "objc", "objcpp" },
                         capabilities = capabilities,
+
+                        root_dir = function(fname)
+                            local root = util.root_pattern(
+                                "compile_commands.json",
+                                ".clangd",
+                                ".git",
+                                "Makefile",
+                                "configure.ac"
+                            )(fname)
+
+                            if root then
+                                return root
+                            end
+
+                            return util.path.dirname(fname)
+                        end,
                     })
                 end,
 

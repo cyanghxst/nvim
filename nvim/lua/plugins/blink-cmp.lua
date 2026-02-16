@@ -91,7 +91,7 @@ return {
                     -- score_offset = 100,
                 },
                 path = {
-                    min_keyword_length = 1,
+                    min_keyword_length = 0,
                 },
                 snippets = {
                     min_keyword_length = 3,

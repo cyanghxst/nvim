@@ -25,7 +25,7 @@ return {
         local capabilities = require("blink.cmp").get_lsp_capabilities()
 
         require("mason-lspconfig").setup({
-            ensure_installed = { "html", "lua_ls", "pyright", "jdtls", "jsonls", "clangd", "marksman" },
+            ensure_installed = { "html", "cssls", "lua_ls", "pyright", "jdtls", "jsonls", "clangd", "marksman" },
             handlers = {
                 function(server_name) -- default handler
                     require("lspconfig")[server_name].setup({

@@ -58,6 +58,7 @@ return {
                     "jsonc",
                     "markdown",
                     "yaml",
+                    "astro",
                 },
                 extra_args = {
                     "--tab-width",

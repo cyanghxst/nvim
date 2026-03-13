@@ -34,7 +34,7 @@ return {
                 "jsonls",
                 "clangd",
                 "marksman",
-                "astro",
+                "tailwindcss",
             },
             handlers = {
                 function(server_name) -- default handler

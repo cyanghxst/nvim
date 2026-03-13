@@ -35,6 +35,8 @@ return {
                 "clangd",
                 "marksman",
                 "tailwindcss",
+                "ts_ls",
+                "bashls",
             },
             handlers = {
                 function(server_name) -- default handler

@@ -9,14 +9,13 @@ return {
     event = { "BufReadPre", "BufNewFile" },
 
     config = function()
-        require("mason").setup()
-
         require("mason-null-ls").setup({
             ensure_installed = {
                 "stylua", -- lua
                 "prettier", -- js/ts/css/html/json/md/yaml
                 "yamlfmt",
                 "eslint_d", -- js/ts
+                "clang-format", -- c/cpp
             },
             automatic_installation = true,
             handlers = {
@@ -65,6 +64,9 @@ return {
                     "4",
                 },
             }),
+
+            -- clang-format (C/C++)
+            null_ls.builtins.formatting.clang_format,
         }
 
         -- Add checkstyle only if it's available

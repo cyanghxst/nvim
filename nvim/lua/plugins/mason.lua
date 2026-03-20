@@ -37,7 +37,9 @@ return {
                 "tailwindcss",
                 "ts_ls",
                 "bashls",
+                "astro",
             },
+
             handlers = {
                 function(server_name) -- default handler
                     require("lspconfig")[server_name].setup({
@@ -120,6 +122,12 @@ return {
                         capabilities = capabilities,
                         filetypes = { "sh", "bash", "zsh" },
                         cmd = { "bash-language-server", "start" },
+                    })
+                end,
+
+                astro = function()
+                    require("lspconfig").astro.setup({
+                        capabilities = capabilities,
                     })
                 end,
             },

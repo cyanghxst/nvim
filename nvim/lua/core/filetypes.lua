@@ -6,12 +6,15 @@ vim.filetype.add({
         ["zshrc"] = "zsh",
         ["gitconfig"] = "gitconfig",
     },
+
     extension = {
         zsh = "zsh",
         jsonc = "jsonc",
         toml = "toml",
         conf = "conf",
+        astro = "astro",
     },
+
     pattern = {
         [".*%.conf%.yml"] = "yaml",
         [".*%.conf%.yaml"] = "yaml",

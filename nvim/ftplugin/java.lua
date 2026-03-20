@@ -5,10 +5,31 @@ local jdtls = require("jdtls")
 -----------
 
 local home = vim.env.HOME
-local java_21 = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.4-tem/bin/java"
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:t")
 local workspace_dir = home .. "/.jdtls-workspace/" .. project_name
 
+local function find_java()
+    -- prefer JAVA_HOME, fall back to exepath
+    local java_home = vim.env.JAVA_HOME
+    if java_home and java_home ~= "" then
+        return java_home .. "/bin/java"
+    end
+    return vim.fn.exepath("java")
+end
+
+local function jdtls_config_dir()
+    local os_name = vim.loop.os_uname().sysname
+    local arch = vim.loop.os_uname().machine
+    if os_name == "Darwin" then
+        return arch == "arm64" and "config_mac_arm" or "config_mac"
+    elseif os_name == "Linux" then
+        return "config_linux"
+    else
+        return "config_win"
+    end
+end
+
+local java_path = find_java()
 local root_dir = require("jdtls.setup").find_root({
     ".git",
     "mvnw",
@@ -34,13 +55,58 @@ vim.list_extend(bundles, vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason
 local formatter_path = home .. "/.config/java/jdtls-format.xml"
 local formatter_uri = "file://" .. formatter_path
 
+-----------------------
+-- java runtimes     --
+-----------------------
+
+local function detect_java_runtimes()
+    local runtimes = {}
+    local java_home = vim.env.JAVA_HOME
+    local sdkman = vim.env.SDKMAN_DIR
+
+    -- SDKMAN candidates
+    if sdkman and sdkman ~= "" then
+        local candidates_dir = sdkman .. "/candidates/java"
+        local handle = vim.loop.fs_scandir(candidates_dir)
+        if handle then
+            while true do
+                local name = vim.loop.fs_scandir_next(handle)
+                if not name then break end
+                local path = candidates_dir .. "/" .. name
+                -- extract major version from path (e.g., "21.0.4-tem" -> 21)
+                local major = name:match("^(%d+)")
+                if major then
+                    table.insert(runtimes, {
+                        name = "JavaSE-" .. major,
+                        path = path,
+                    })
+                end
+            end
+        end
+    end
+
+    -- JAVA_HOME as fallback runtime
+    if #runtimes == 0 and java_home and java_home ~= "" then
+        local version_output = vim.fn.system("java -version 2>&1")
+        local major = version_output:match('version "%u?(%d+)')
+        if major then
+            table.insert(runtimes, {
+                name = "JavaSE-" .. major,
+                path = java_home,
+            })
+        end
+    end
+
+    return runtimes
+end
+
 ------------
 -- config --
 ------------
 
 local config = {
     cmd = {
-        java_21, -- seems jdtls doesn't like old JVMs ¯\_(ツ)_/¯
+        java_path,
 
         "-Declipse.application=org.eclipse.jdt.ls.core.id1",
         "-Dosgi.bundles.defaultStartLevel=4",
@@ -60,7 +126,7 @@ local config = {
         "-jar",
         launcher_path,
         "-configuration",
-        jdtls_base .. "/config_mac_arm",
+        jdtls_base .. "/" .. jdtls_config_dir(),
         "-data",
         workspace_dir,
     },
@@ -76,16 +142,7 @@ local config = {
                 updateBuildConfiguration = "interactive",
 
                 -- for project source/target levels (not jdtls runtime)
-                runtimes = {
-                    {
-                        name = "JavaSE-11",
-                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/11.0.28-tem",
-                    },
-                    {
-                        name = "JavaSE-21",
-                        path = "/opt/homebrew/opt/sdkman-cli/libexec/candidates/java/21.0.4-tem",
-                    },
-                },
+                runtimes = detect_java_runtimes(),
             },
 
             maven = { downloadSources = true },

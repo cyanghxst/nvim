@@ -76,7 +76,7 @@ return {
                         settings = {
                             Lua = {
                                 diagnostics = {
-                                    globals = { "vim", "require", "hs" },
+                                    globals = { "vim", "hs" },
                                 },
                                 workspace = { checkThirdParty = false },
                                 completion = { callSnippet = "Replace" },
@@ -182,8 +182,9 @@ return {
             ensure_installed = {
                 "java-debug-adapter",
                 "java-test",
-                "prettierd",
+                "prettier",
                 "stylua",
+                "clang-format",
             },
         })
     end,

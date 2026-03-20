@@ -24,6 +24,27 @@ return {
 
         local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+        local function on_attach(client, bufnr)
+            local map = function(mode, lhs, rhs, desc)
+                vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+            end
+
+            map("n", "<leader>gg", vim.lsp.buf.hover, "Hover")
+            map("n", "<leader>gd", vim.lsp.buf.definition, "Go to definition")
+            map("n", "<leader>gD", vim.lsp.buf.declaration, "Go to declaration")
+            map("n", "<leader>gi", vim.lsp.buf.implementation, "Go to implementation")
+            map("n", "<leader>gt", vim.lsp.buf.type_definition, "Go to type definition")
+            map("n", "<leader>gr", vim.lsp.buf.references, "Go to references")
+            map("n", "<leader>gs", vim.lsp.buf.signature_help, "Signature help")
+            map("n", "<leader>rr", vim.lsp.buf.rename, "Rename symbol")
+            map({ "n", "v" }, "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, "Format")
+            map("n", "<leader>ga", vim.lsp.buf.code_action, "Code action")
+            map("n", "<leader>gl", vim.diagnostic.open_float, "Open float")
+            map("n", "<leader>gp", vim.diagnostic.goto_prev, "Go to previous")
+            map("n", "<leader>gn", vim.diagnostic.goto_next, "Go to next")
+            map("n", "<leader>tr", vim.lsp.buf.document_symbol, "Document symbol")
+        end
+
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "html",
@@ -44,12 +65,14 @@ return {
                 function(server_name) -- default handler
                     require("lspconfig")[server_name].setup({
                         capabilities = capabilities,
+                        on_attach = on_attach,
                     })
                 end,
 
                 lua_ls = function()
                     require("lspconfig").lua_ls.setup({
                         capabilities = capabilities,
+                        on_attach = on_attach,
                         settings = {
                             Lua = {
                                 diagnostics = {
@@ -69,6 +92,7 @@ return {
                         cmd = { "clangd", "--fallback-style=webkit" },
                         filetypes = { "cpp", "c", "objc", "objcpp" },
                         capabilities = capabilities,
+                        on_attach = on_attach,
 
                         root_dir = function(fname)
                             local root = util.root_pattern(
@@ -111,7 +135,8 @@ return {
                             "javascriptreact",
                             "javascript.jsx",
                         },
-                        on_attach = function(client, _)
+                        on_attach = function(client, bufnr)
+                            on_attach(client, bufnr)
                             client.server_capabilities.documentFormattingProvider = false
                         end,
                     })
@@ -120,6 +145,7 @@ return {
                 bashls = function()
                     require("lspconfig").bashls.setup({
                         capabilities = capabilities,
+                        on_attach = on_attach,
                         filetypes = { "sh", "bash", "zsh" },
                         cmd = { "bash-language-server", "start" },
                     })
@@ -128,6 +154,7 @@ return {
                 astro = function()
                     require("lspconfig").astro.setup({
                         capabilities = capabilities,
+                        on_attach = on_attach,
                     })
                 end,
             },
@@ -136,6 +163,7 @@ return {
         -- Diagnostic configuration
         vim.diagnostic.config({
             virtual_text = { prefix = "*" },
+            float = { border = "rounded" },
             signs = {
                 text = {
                     [vim.diagnostic.severity.HINT] = "*",
@@ -146,11 +174,9 @@ return {
             },
         })
 
-        -- Hover and signature handlers with rounded borders
+        -- Hover and signature borders
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-
-        vim.lsp.handlers["textDocument/signatureHelp"] =
-            vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
         require("mason-tool-installer").setup({
             ensure_installed = {

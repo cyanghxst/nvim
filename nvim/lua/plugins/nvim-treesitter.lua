@@ -12,8 +12,8 @@ return {
         },
 
         indent = {
-            enable = false,
-            disable = { "python" },
+            enable = true,
+            disable = { "python", "java", "html" },
         },
 
         ensure_installed = {

@@ -18,52 +18,81 @@ vim.api.nvim_create_autocmd("Filetype", {
 
 -- Autoclose tree
 vim.api.nvim_create_autocmd("BufEnter", {
-    command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit! | endif",
     nested = true,
+    callback = function()
+        local wins = vim.api.nvim_list_wins()
+        if #wins ~= 1 then
+            return
+        end
+        local buf = vim.api.nvim_win_get_buf(wins[1])
+        if vim.bo[buf].filetype == "NvimTree" then
+            vim.cmd("quit")
+        end
+    end,
 })
 
 vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#a9b1d6", bold = false, italic = false })
 
 -- Disable automatic comment insertion
-vim.cmd([[autocmd FileType * setlocal formatoptions-=cro]])
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+    end,
+})
 
 -- Disable mini.indentscope when entering insert mode
-vim.cmd([[
-augroup DisableMiniIndentScope
-autocmd!
-autocmd InsertEnter * lua vim.g.miniindentscope_disable = true
-autocmd InsertLeave * lua vim.g.miniindentscope_disable = false
-augroup END
-]])
+vim.api.nvim_create_autocmd("InsertEnter", {
+    callback = function()
+        vim.g.miniindentscope_disable = true
+    end,
+})
+vim.api.nvim_create_autocmd("InsertLeave", {
+    callback = function()
+        vim.g.miniindentscope_disable = false
+    end,
+})
 
--- Highlight yanked text for 300ms using the "Visual" highlight group
-vim.cmd([[
-augroup highlight_yank
-autocmd!
-au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=300})
-augroup END
-]])
+-- Highlight yanked text for 300ms
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank({ higroup = "Visual", timeout = 300 })
+    end,
+})
 
 -- Jump to last edit position on opening file
-vim.cmd([[
-au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-]])
+vim.api.nvim_create_autocmd("BufReadPost", {
+    callback = function()
+        local bufname = vim.api.nvim_buf_get_name(0)
+        if bufname:match("%.git/") then
+            return
+        end
+        local mark = vim.api.nvim_buf_get_mark(0, '"')
+        local lcount = vim.api.nvim_buf_line_count(0)
+        if mark[1] > 0 and mark[1] <= lcount then
+            vim.api.nvim_win_set_cursor(0, mark)
+        end
+    end,
+})
 
 -- Fix auto-indentation for YAML files
-vim.cmd([[
-augroup yaml_fix
-    autocmd!
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>
-augroup END
-]])
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "yaml",
+    callback = function()
+        vim.opt_local.tabstop = 2
+        vim.opt_local.softtabstop = 2
+        vim.opt_local.shiftwidth = 2
+        vim.opt_local.expandtab = true
+        vim.opt_local.indentkeys:remove({ "0#", "<:>" })
+    end,
+})
 
 -- Re-enable lsp diagnostics after autoformatting
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*",
     callback = function(args)
-        -- vim.lsp.buf.format({ bufnr = args.buf, async = true })
         vim.defer_fn(function()
-            vim.diagnostic.enable(true)
+            vim.diagnostic.enable(args.buf)
         end, 100)
     end,
 })

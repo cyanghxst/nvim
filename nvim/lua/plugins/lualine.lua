@@ -1,6 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
-    enabled = true,
+    event = "VeryLazy",
     opts = function()
         local colors = { gray = "#414868" }
         local minimal_theme = {

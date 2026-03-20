@@ -1,5 +1,5 @@
 return {
     "kaplanz/retrail.nvim",
-    enabled = true,
+    event = { "BufReadPost", "BufNewFile" },
     opts = {},
 }

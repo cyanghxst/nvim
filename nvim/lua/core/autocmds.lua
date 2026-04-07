@@ -92,7 +92,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*",
     callback = function(args)
         vim.defer_fn(function()
-            vim.diagnostic.enable(args.buf)
+            vim.diagnostic.enable(true, { bufnr = args.buf })
         end, 100)
     end,
 })

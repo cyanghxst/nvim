@@ -55,7 +55,7 @@ return {
                     "html",
                     "json",
                     "jsonc",
-                    "markdown",
+                    -- "markdown",
                     "yaml",
                     "astro",
                 },

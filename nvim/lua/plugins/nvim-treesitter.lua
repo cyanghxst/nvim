@@ -7,22 +7,35 @@ return {
         { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
     },
     config = function()
-        require("nvim-treesitter").setup {}
-        vim.filetype.add({ extension = { mdx = "markdown" } })
-
-        vim.api.nvim_create_autocmd("FileType", {
-            callback = function(args)
-                pcall(vim.treesitter.start, args.buf)
-                vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-            end,
+        require("nvim-treesitter").setup({
+            auto_install = true,
         })
 
-        local parsers = {
-            "query", "html", "javascript", "java", "css", "vim", "vimdoc",
-            "lua", "luadoc", "bash", "json", "toml", "yaml", "sql",
-            "markdown", "markdown_inline", "python", "regex", "c",
-            "make", "doxygen", "cpp",
-        }
-        require("nvim-treesitter").install(parsers)
+        vim.filetype.add({ extension = { mdx = "markdown" } })
+
+        require("nvim-treesitter").install({
+            "query",
+            "html",
+            "javascript",
+            "java",
+            "css",
+            "vim",
+            "vimdoc",
+            "lua",
+            "luadoc",
+            "bash",
+            "json",
+            "toml",
+            "yaml",
+            "sql",
+            "markdown",
+            "markdown_inline",
+            "python",
+            "regex",
+            "c",
+            "make",
+            "doxygen",
+            "cpp",
+        })
     end,
 }

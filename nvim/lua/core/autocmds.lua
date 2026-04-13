@@ -33,6 +33,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#a9b1d6", bold = false, italic = false })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function()
+        vim.fn.mkdir(vim.fn.expand("%:p:h"), "p")
+    end,
+})
+
 -- Disable automatic comment insertion
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
@@ -94,5 +100,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.defer_fn(function()
             vim.diagnostic.enable(true, { bufnr = args.buf })
         end, 100)
+    end,
+})
+
+-- Enable syntax highlighting for sshconfig
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "sshconfig",
+    callback = function(args)
+        vim.bo[args.buf].syntax = "sshconfig"
     end,
 })

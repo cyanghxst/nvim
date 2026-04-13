@@ -20,5 +20,6 @@ vim.filetype.add({
         [".*%.conf%.yaml"] = "yaml",
         [".*%.env%..*"] = "sh",
         ["%.env"] = "sh",
+        [".*/%.ssh/config"] = "sshconfig",
     },
 })

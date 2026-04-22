@@ -32,7 +32,7 @@ return {
 
         pickers = {
             find_files = { theme = "dropdown" },
-            live_grep = { previewer = true },
+            live_grep = { theme = "dropdown" },
             help_tags = { theme = "dropdown" },
             highlights = { theme = "dropdown" },
             buffers = { theme = "dropdown" },

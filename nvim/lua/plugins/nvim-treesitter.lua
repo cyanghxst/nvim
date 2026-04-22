@@ -14,6 +14,7 @@ return {
         vim.filetype.add({ extension = { mdx = "markdown" } })
 
         require("nvim-treesitter").install({
+            "astro",
             "query",
             "html",
             "javascript",

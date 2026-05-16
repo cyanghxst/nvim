@@ -77,8 +77,7 @@ return {
 
                     local clangd_path = mason_registry.get_package("clangd"):get_install_path()
                         .. "/extension/LLVM/bin/clangd"
-                    local arduino_cli_path = mason_registry.get_package("arduino-cli"):get_install_path()
-                        .. "/arduino-cli"
+                    local arduino_cli_path = "/opt/homebrew/bin/arduino-cli"
 
                     local home = os.getenv("HOME") or os.getenv("USERPROFILE") or ""
                     local arduino_dir = home .. "/Library/Arduino15"

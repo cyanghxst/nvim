@@ -184,6 +184,7 @@ return {
                 "java-test",
                 "prettier",
                 "stylua",
+                "yamlfmt",
                 "clang-format",
             },
         })

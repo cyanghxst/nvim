@@ -10,6 +10,7 @@ opt.statuscolumn = "%=%{v:lnum} %s"
 -- Statusline (replaces lualine)
 opt.statusline = "%=%{%v:lua.require('core.statusline').render()%}"
 opt.laststatus = 3
+vim.api.nvim_set_hl(0, "StatusLine", { fg = "#414868" })
 
 -- Colors
 opt.termguicolors = true

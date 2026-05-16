@@ -84,6 +84,15 @@ return {
                     local arduino_dir = home .. "/Library/Arduino15"
                     local cli_config = arduino_dir .. "/arduino-cli.yaml"
 
+                    -- Log to file for debugging
+                    local f = io.open("/tmp/arduino_lsp_debug.txt", "w")
+                    f:write("als_path: " .. als_path .. "\n")
+                    f:write("clangd_path: " .. clangd_path .. "\n")
+                    f:write("arduino_cli_path: " .. arduino_cli_path .. "\n")
+                    f:write("cli_config: " .. cli_config .. "\n")
+                    f:write("filereadable: " .. vim.fn.filereadable(cli_config) .. "\n")
+                    f:close()
+
                     if vim.fn.filereadable(cli_config) == 0 then
                         vim.fn.mkdir(arduino_dir, "p")
                         local handle =

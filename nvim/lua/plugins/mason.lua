@@ -75,11 +75,22 @@ return {
                 arduino_language_server = function()
                     local mason_registry = require("mason-registry")
 
-                    local clangd_path = mason_registry.get_package("clangd"):get_install_path() .. "/extension/LLVM/bin/clangd"
-                    local arduino_cli_path = mason_registry.get_package("arduino-cli"):get_install_path() .. "/arduino-cli"
+                    local clangd_path = mason_registry.get_package("clangd"):get_install_path()
+                        .. "/extension/LLVM/bin/clangd"
+                    local arduino_cli_path = mason_registry.get_package("arduino-cli"):get_install_path()
+                        .. "/arduino-cli"
 
-                    local home = os.getenv("HOME") or os.getenv("USERPROFILE")
-                    local cli_config = home .. "/.arduino15/arduino-cli.yaml"
+                    local home = os.getenv("HOME") or os.getenv("USERPROFILE") or ""
+                    local arduino_dir = home .. "/Library/Arduino15"
+                    local cli_config = arduino_dir .. "/arduino-cli.yaml"
+
+                    if vim.fn.filereadable(cli_config) == 0 then
+                        vim.fn.mkdir(arduino_dir, "p")
+                        local handle = io.popen(arduino_cli_path .. " config init --config-file " .. cli_config .. " 2>&1")
+                        if handle then
+                            handle:close()
+                        end
+                    end
 
                     require("lspconfig").arduino_language_server.setup({
                         capabilities = capabilities,

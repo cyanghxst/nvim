@@ -17,6 +17,7 @@ return {
             c = { "clang-format" },
             cpp = { "clang-format" },
         },
+
         formatters = {
             stylua = {
                 prepend_args = { "--indent-width", "4", "--indent-type", "Spaces" },

@@ -26,7 +26,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
         end
         local buf = vim.api.nvim_win_get_buf(wins[1])
         if vim.bo[buf].filetype == "NvimTree" then
-            vim.api.nvim_win_close(wins[1], true)
+            vim.schedule(function()
+                vim.cmd("qall!")
+            end)
         end
     end,
 })

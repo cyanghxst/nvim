@@ -9,7 +9,7 @@ opt.statuscolumn = "%=%{v:lnum} %s"
 
 -- Statusline (replaces lualine)
 opt.statusline = "%{%v:lua.require('core.statusline').render()%}"
-opt.globalstatus = true
+opt.laststatus = 3
 
 -- Colors
 opt.termguicolors = true

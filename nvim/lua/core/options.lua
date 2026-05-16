@@ -7,6 +7,10 @@ opt.cmdheight = 0
 -- Status column
 opt.statuscolumn = "%=%{v:lnum} %s"
 
+-- Statusline (replaces lualine)
+opt.statusline = "%{%v:lua.require('core.statusline').render()%}"
+opt.globalstatus = true
+
 -- Colors
 opt.termguicolors = true
 

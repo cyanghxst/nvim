@@ -15,7 +15,6 @@ return {
 
         require("nvim-treesitter").install({
             "astro",
-            "query",
             "html",
             "javascript",
             "java",
@@ -23,7 +22,6 @@ return {
             "vim",
             "vimdoc",
             "lua",
-            "luadoc",
             "bash",
             "json",
             "toml",
@@ -35,7 +33,6 @@ return {
             "regex",
             "c",
             "make",
-            "doxygen",
             "cpp",
         })
     end,

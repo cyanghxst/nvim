@@ -75,6 +75,8 @@ return {
                 arduino_language_server = function()
                     local mason_registry = require("mason-registry")
 
+                    local als_path = mason_registry.get_package("arduino-language-server"):get_install_path()
+                        .. "/arduino-language-server"
                     local clangd_path = vim.fn.expand("~/.local/share/nvim/mason/packages/clangd/clangd_22.1.0/extension/LLVM/bin/clangd")
                     local arduino_cli_path = "/opt/homebrew/bin/arduino-cli"
 
@@ -91,22 +93,15 @@ return {
                         end
                     end
 
-                    vim.print("arduino cli_config: " .. cli_config)
-                    vim.print("arduino arduino_cli_path: " .. arduino_cli_path)
-                    vim.print("arduino clangd_path: " .. clangd_path)
                     require("lspconfig").arduino_language_server.setup({
                         capabilities = capabilities,
                         on_attach = on_attach,
                         cmd = {
-                            "arduino-language-server",
-                            "-cli-config",
-                            cli_config,
-                            "-cli",
-                            arduino_cli_path,
-                            "-clangd",
-                            clangd_path,
-                            "-fqbn",
-                            "arduino:avr:uno",
+                            als_path,
+                            "-cli-config", cli_config,
+                            "-cli", arduino_cli_path,
+                            "-clangd", clangd_path,
+                            "-fqbn", "arduino:avr:uno",
                         },
                     })
                 end,

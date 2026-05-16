@@ -47,6 +47,11 @@ return {
             map("n", "<leader>tr", vim.lsp.buf.document_symbol, "Document symbol")
         end
 
+        vim.lsp.config["*"] = {
+            capabilities = capabilities,
+            on_attach = on_attach,
+        }
+
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "html",
@@ -64,147 +69,100 @@ return {
                 "arduino_language_server",
             },
 
-            handlers = {
-                function(server_name) -- default handler
-                    require("lspconfig")[server_name].setup({
-                        capabilities = capabilities,
-                        on_attach = on_attach,
-                    })
-                end,
-
-                arduino_language_server = function()
-                    local lspconfig = require("lspconfig")
-                    local mason_registry = require("mason-registry")
-
-                    local als_path = mason_registry.get_package("arduino-language-server"):get_install_path()
-                        .. "/arduino-language-server"
-                    local clangd_path = vim.fn.expand("~/.local/share/nvim/mason/packages/clangd/clangd_22.1.0/extension/LLVM/bin/clangd")
-                    local arduino_cli_path = "/opt/homebrew/bin/arduino-cli"
-
-                    local home = os.getenv("HOME") or os.getenv("USERPROFILE") or ""
-                    local arduino_dir = home .. "/Library/Arduino15"
-                    local cli_config = arduino_dir .. "/arduino-cli.yaml"
-
-                    local f = io.open("/tmp/arduino_lsp_debug.txt", "w")
-                    f:write("als_path: " .. als_path .. "\n")
-                    f:write("clangd_path: " .. clangd_path .. "\n")
-                    f:write("arduino_cli_path: " .. arduino_cli_path .. "\n")
-                    f:write("cli_config: " .. cli_config .. "\n")
-                    f:write("filereadable: " .. vim.fn.filereadable(cli_config) .. "\n")
-                    f:close()
-
-                    if vim.fn.filereadable(cli_config) == 0 then
-                        vim.fn.mkdir(arduino_dir, "p")
-                        local handle = io.popen(arduino_cli_path .. " config init --config-file " .. cli_config .. " 2>&1")
-                        if handle then
-                            handle:close()
-                        end
-                    end
-
-                    lspconfig.arduino_language_server = {
-                        default_config = {
-                            cmd = { als_path, "-cli-config", cli_config, "-cli", arduino_cli_path, "-clangd", clangd_path, "-fqbn", "arduino:avr:uno" },
-                            filetypes = { "arduino" },
-                            root_dir = lspconfig.util.root_pattern("*.ino", "*.pde"),
-                        },
-                    }
-
-                    lspconfig.arduino_language_server.setup({
-                        capabilities = capabilities,
-                        on_attach = on_attach,
-                    })
-                end,
-
-                lua_ls = function()
-                    require("lspconfig").lua_ls.setup({
-                        capabilities = capabilities,
-                        on_attach = on_attach,
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { "vim", "hs" },
-                                },
-                                workspace = { checkThirdParty = false },
-                                completion = { callSnippet = "Replace" },
-                            },
-                        },
-                    })
-                end,
-
-                clangd = function()
-                    local util = require("lspconfig.util")
-
-                    require("lspconfig").clangd.setup({
-                        cmd = { "clangd", "--fallback-style=webkit" },
-                        filetypes = { "cpp", "c", "objc", "objcpp" },
-                        capabilities = capabilities,
-                        on_attach = on_attach,
-
-                        root_dir = function(fname)
-                            local root = util.root_pattern(
-                                "compile_commands.json",
-                                ".clangd",
-                                ".git",
-                                "Makefile",
-                                "configure.ac"
-                            )(fname)
-
-                            if root then
-                                return root
-                            end
-
-                            return util.path.dirname(fname)
-                        end,
-                    })
-                end,
-
-                json_ls = function()
-                    require("lspconfig").jsonls.setup({
-                        settings = {
-                            json = {
-                                schemas = require("schemastore").json.schemas(),
-                                validate = { enable = true },
-                            },
-                        },
-                    })
-                end,
-
-                ts_ls = function()
-                    require("lspconfig").ts_ls.setup({
-                        capabilities = capabilities,
-                        cmd = { "typescript-language-server", "--stdio" },
-                        filetypes = {
-                            "typescript",
-                            "typescriptreact",
-                            "typescript.tsx",
-                            "javascript",
-                            "javascriptreact",
-                            "javascript.jsx",
-                        },
-                        on_attach = function(client, bufnr)
-                            on_attach(client, bufnr)
-                            client.server_capabilities.documentFormattingProvider = false
-                        end,
-                    })
-                end,
-
-                bashls = function()
-                    require("lspconfig").bashls.setup({
-                        capabilities = capabilities,
-                        on_attach = on_attach,
-                        filetypes = { "sh", "bash", "zsh" },
-                        cmd = { "bash-language-server", "start" },
-                    })
-                end,
-
-                astro = function()
-                    require("lspconfig").astro.setup({
-                        capabilities = capabilities,
-                        on_attach = on_attach,
-                    })
-                end,
-            },
         })
+
+        -- Per-server config overrides
+        -- (servers not listed here inherit defaults from
+        --  nvim-lspconfig's built-in configs + global '*' above)
+
+        vim.lsp.config.lua_ls = {
+            settings = {
+                Lua = {
+                    diagnostics = { globals = { "vim", "hs" } },
+                    workspace = { checkThirdParty = false },
+                    completion = { callSnippet = "Replace" },
+                },
+            },
+        }
+
+        vim.lsp.config.clangd = {
+            cmd = { "clangd", "--fallback-style=webkit" },
+            filetypes = { "c", "cpp", "objc", "objcpp" },
+            root_dir = function(bufnr, on_dir)
+                local bufname = vim.api.nvim_buf_get_name(bufnr)
+                if bufname == "" then return end
+                local dir = vim.fs.dirname(bufname)
+                on_dir(vim.fs.root(dir, { "compile_commands.json", ".clangd", ".git", "Makefile", "configure.ac" }) or dir)
+            end,
+        }
+
+        vim.lsp.config.jsonls = {
+            settings = {
+                json = {
+                    schemas = require("schemastore").json.schemas(),
+                    validate = { enable = true },
+                },
+            },
+        }
+
+        vim.lsp.config.ts_ls = {
+            cmd = { "typescript-language-server", "--stdio" },
+            filetypes = {
+                "typescript",
+                "typescriptreact",
+                "typescript.tsx",
+                "javascript",
+                "javascriptreact",
+                "javascript.jsx",
+            },
+            on_attach = function(client, bufnr)
+                on_attach(client, bufnr)
+                client.server_capabilities.documentFormattingProvider = false
+            end,
+        }
+
+        vim.lsp.config.bashls = {
+            cmd = { "bash-language-server", "start" },
+            filetypes = { "sh", "bash", "zsh" },
+        }
+
+        -- arduino-language-server: requires explicit CLI args and config path
+        do
+            local data = vim.fn.stdpath("data")
+            local als_path = data .. "/mason/bin/arduino-language-server"
+            local clangd_path = data .. "/mason/bin/clangd"
+            local arduino_cli_path = "/opt/homebrew/bin/arduino-cli"
+            local home = os.getenv("HOME")
+            local cli_config = home .. "/Library/Arduino15/arduino-cli.yaml"
+
+            if vim.fn.filereadable(cli_config) == 0 then
+                vim.fn.mkdir(home .. "/Library/Arduino15", "p")
+                vim.fn.system({ arduino_cli_path, "config", "init", "--config-file", cli_config })
+            end
+
+            vim.lsp.config.arduino_language_server = {
+                cmd = {
+                    als_path,
+                    "-cli-config",
+                    cli_config,
+                    "-cli",
+                    arduino_cli_path,
+                    "-clangd",
+                    clangd_path,
+                    "-fqbn",
+                    "arduino:avr:uno",
+                },
+                filetypes = { "arduino" },
+                root_dir = function(bufnr, on_dir)
+                    local bufname = vim.api.nvim_buf_get_name(bufnr)
+                    if bufname ~= "" then
+                        on_dir(vim.fs.dirname(bufname))
+                    end
+                end,
+                capabilities = capabilities,
+                on_attach = on_attach,
+            }
+        end
 
         -- Diagnostic configuration
         vim.diagnostic.config({

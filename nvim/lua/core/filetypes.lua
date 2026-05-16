@@ -13,6 +13,8 @@ vim.filetype.add({
         toml = "toml",
         conf = "conf",
         astro = "astro",
+        ino = "arduino",
+        pde = "arduino",
     },
 
     pattern = {

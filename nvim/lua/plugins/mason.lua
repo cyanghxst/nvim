@@ -75,8 +75,7 @@ return {
                 arduino_language_server = function()
                     local mason_registry = require("mason-registry")
 
-                    local clangd_path = vim.fn.glob(mason_registry.get_package("clangd"):get_install_path() 
-                        .. "/clangd_*/extension/LLVM/bin/clangd")
+                    local clangd_path = vim.fn.expand("~/.local/share/nvim/mason/packages/clangd/clangd_22.1.0/extension/LLVM/bin/clangd")
                     local arduino_cli_path = "/opt/homebrew/bin/arduino-cli"
 
                     local home = os.getenv("HOME") or os.getenv("USERPROFILE") or ""
@@ -85,21 +84,29 @@ return {
 
                     if vim.fn.filereadable(cli_config) == 0 then
                         vim.fn.mkdir(arduino_dir, "p")
-                        local handle = io.popen(arduino_cli_path .. " config init --config-file " .. cli_config .. " 2>&1")
+                        local handle =
+                            io.popen(arduino_cli_path .. " config init --config-file " .. cli_config .. " 2>&1")
                         if handle then
                             handle:close()
                         end
                     end
 
+                    vim.print("arduino cli_config: " .. cli_config)
+                    vim.print("arduino arduino_cli_path: " .. arduino_cli_path)
+                    vim.print("arduino clangd_path: " .. clangd_path)
                     require("lspconfig").arduino_language_server.setup({
                         capabilities = capabilities,
                         on_attach = on_attach,
                         cmd = {
                             "arduino-language-server",
-                            "-cli-config", cli_config,
-                            "-cli", arduino_cli_path,
-                            "-clangd", clangd_path,
-                            "-fqbn", "arduino:avr:uno",
+                            "-cli-config",
+                            cli_config,
+                            "-cli",
+                            arduino_cli_path,
+                            "-clangd",
+                            clangd_path,
+                            "-fqbn",
+                            "arduino:avr:uno",
                         },
                     })
                 end,

@@ -8,7 +8,7 @@ opt.cmdheight = 0
 opt.statuscolumn = "%=%{v:lnum} %s"
 
 -- Statusline (replaces lualine)
-opt.statusline = "%{%v:lua.require('core.statusline').render()%}"
+opt.statusline = "%=%{%v:lua.require('core.statusline').render()%}"
 opt.laststatus = 3
 
 -- Colors

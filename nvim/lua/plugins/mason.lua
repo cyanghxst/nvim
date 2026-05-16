@@ -37,7 +37,9 @@ return {
             map("n", "<leader>gr", vim.lsp.buf.references, "Go to references")
             map("n", "<leader>gs", vim.lsp.buf.signature_help, "Signature help")
             map("n", "<leader>rr", vim.lsp.buf.rename, "Rename symbol")
-            map({ "n", "v" }, "<leader>gf", function() vim.lsp.buf.format({ async = true }) end, "Format")
+            map({ "n", "v" }, "<leader>gf", function()
+                vim.lsp.buf.format({ async = true })
+            end, "Format")
             map("n", "<leader>ga", vim.lsp.buf.code_action, "Code action")
             map("n", "<leader>gl", vim.diagnostic.open_float, "Open float")
             map("n", "<leader>gp", vim.diagnostic.goto_prev, "Go to previous")
@@ -59,6 +61,7 @@ return {
                 "ts_ls",
                 "bashls",
                 "astro",
+                "arduino_language_server",
             },
 
             handlers = {
@@ -66,6 +69,28 @@ return {
                     require("lspconfig")[server_name].setup({
                         capabilities = capabilities,
                         on_attach = on_attach,
+                    })
+                end,
+
+                arduino_language_server = function()
+                    local mason_registry = require("mason-registry")
+
+                    local clangd_path = mason_registry.get_package("clangd"):get_install_path() .. "/extension/LLVM/bin/clangd"
+                    local arduino_cli_path = mason_registry.get_package("arduino-cli"):get_install_path() .. "/arduino-cli"
+
+                    local home = os.getenv("HOME") or os.getenv("USERPROFILE")
+                    local cli_config = home .. "/.arduino15/arduino-cli.yaml"
+
+                    require("lspconfig").arduino_language_server.setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        cmd = {
+                            "arduino-language-server",
+                            "-cli-config", cli_config,
+                            "-cli", arduino_cli_path,
+                            "-clangd", clangd_path,
+                            "-fqbn", "arduino:avr:uno",
+                        },
                     })
                 end,
 
@@ -176,7 +201,8 @@ return {
 
         -- Hover and signature borders
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+        vim.lsp.handlers["textDocument/signatureHelp"] =
+            vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
         require("mason-tool-installer").setup({
             ensure_installed = {

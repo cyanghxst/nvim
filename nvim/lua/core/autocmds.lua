@@ -26,7 +26,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
         end
         local buf = vim.api.nvim_win_get_buf(wins[1])
         if vim.bo[buf].filetype == "NvimTree" then
-            vim.cmd("quit")
+            vim.api.nvim_win_close(wins[1], true)
         end
     end,
 })

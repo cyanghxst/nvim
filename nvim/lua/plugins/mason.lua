@@ -73,6 +73,7 @@ return {
                 end,
 
                 arduino_language_server = function()
+                    local lspconfig = require("lspconfig")
                     local mason_registry = require("mason-registry")
 
                     local als_path = mason_registry.get_package("arduino-language-server"):get_install_path()
@@ -84,7 +85,6 @@ return {
                     local arduino_dir = home .. "/Library/Arduino15"
                     local cli_config = arduino_dir .. "/arduino-cli.yaml"
 
-                    -- Log to file for debugging
                     local f = io.open("/tmp/arduino_lsp_debug.txt", "w")
                     f:write("als_path: " .. als_path .. "\n")
                     f:write("clangd_path: " .. clangd_path .. "\n")
@@ -95,23 +95,23 @@ return {
 
                     if vim.fn.filereadable(cli_config) == 0 then
                         vim.fn.mkdir(arduino_dir, "p")
-                        local handle =
-                            io.popen(arduino_cli_path .. " config init --config-file " .. cli_config .. " 2>&1")
+                        local handle = io.popen(arduino_cli_path .. " config init --config-file " .. cli_config .. " 2>&1")
                         if handle then
                             handle:close()
                         end
                     end
 
-                    require("lspconfig").arduino_language_server.setup({
+                    lspconfig.arduino_language_server = {
+                        default_config = {
+                            cmd = { als_path, "-cli-config", cli_config, "-cli", arduino_cli_path, "-clangd", clangd_path, "-fqbn", "arduino:avr:uno" },
+                            filetypes = { "arduino" },
+                            root_dir = lspconfig.util.root_pattern("*.ino", "*.pde"),
+                        },
+                    }
+
+                    lspconfig.arduino_language_server.setup({
                         capabilities = capabilities,
                         on_attach = on_attach,
-                        cmd = {
-                            als_path,
-                            "-cli-config", cli_config,
-                            "-cli", arduino_cli_path,
-                            "-clangd", clangd_path,
-                            "-fqbn", "arduino:avr:uno",
-                        },
                     })
                 end,
 

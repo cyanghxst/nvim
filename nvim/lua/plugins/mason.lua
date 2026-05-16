@@ -61,6 +61,7 @@ return {
                 "ts_ls",
                 "bashls",
                 "astro",
+                "arduino_language_server",
             },
 
             handlers = {
@@ -232,53 +233,6 @@ return {
                 "stylua",
                 "clang-format",
             },
-        })
-
-        local lspconfig = require("lspconfig")
-        local mason_registry = require("mason-registry")
-
-        local function start_arduino_lsp()
-            local als_path = mason_registry.get_package("arduino-language-server"):get_install_path()
-                .. "/arduino-language-server"
-            local clangd_path = vim.fn.expand("~/.local/share/nvim/mason/packages/clangd/clangd_22.1.0/extension/LLVM/bin/clangd")
-            local arduino_cli_path = "/opt/homebrew/bin/arduino-cli"
-
-            local home = os.getenv("HOME") or os.getenv("USERPROFILE") or ""
-            local cli_config = home .. "/Library/Arduino15/arduino-cli.yaml"
-
-            local f = io.open("/tmp/arduino_lsp_debug.txt", "w")
-            f:write("Handler called!\n")
-            f:write("als_path: " .. als_path .. "\n")
-            f:write("cli_config: " .. cli_config .. "\n")
-            f:close()
-
-            if vim.fn.filereadable(cli_config) == 0 then
-                vim.fn.mkdir(home .. "/Library/Arduino15", "p")
-                local handle = io.popen(arduino_cli_path .. " config init --config-file " .. cli_config .. " 2>&1")
-                if handle then
-                    handle:close()
-                end
-            end
-
-            lspconfig.arduino_language_server = {
-                default_config = {
-                    cmd = { als_path, "-cli-config", cli_config, "-cli", arduino_cli_path, "-clangd", clangd_path, "-fqbn", "arduino:avr:uno" },
-                    filetypes = { "arduino" },
-                    root_dir = lspconfig.util.root_pattern("*.ino", "*.pde"),
-                },
-            }
-
-            lspconfig.arduino_language_server.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
-        end
-
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = "arduino",
-            callback = function()
-                start_arduino_lsp()
-            end,
         })
     end,
 }

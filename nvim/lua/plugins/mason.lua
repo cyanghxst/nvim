@@ -75,8 +75,8 @@ return {
                 arduino_language_server = function()
                     local mason_registry = require("mason-registry")
 
-                    local clangd_path = mason_registry.get_package("clangd"):get_install_path()
-                        .. "/extension/LLVM/bin/clangd"
+                    local clangd_path = vim.fn.glob(mason_registry.get_package("clangd"):get_install_path() 
+                        .. "/clangd_*/extension/LLVM/bin/clangd")
                     local arduino_cli_path = "/opt/homebrew/bin/arduino-cli"
 
                     local home = os.getenv("HOME") or os.getenv("USERPROFILE") or ""

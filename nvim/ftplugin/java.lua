@@ -18,8 +18,8 @@ local function find_java()
 end
 
 local function jdtls_config_dir()
-    local os_name = vim.loop.os_uname().sysname
-    local arch = vim.loop.os_uname().machine
+    local os_name = vim.uv.os_uname().sysname
+    local arch = vim.uv.os_uname().machine
     if os_name == "Darwin" then
         return arch == "arm64" and "config_mac_arm" or "config_mac"
     elseif os_name == "Linux" then
@@ -67,10 +67,10 @@ local function detect_java_runtimes()
     -- SDKMAN candidates
     if sdkman and sdkman ~= "" then
         local candidates_dir = sdkman .. "/candidates/java"
-        local handle = vim.loop.fs_scandir(candidates_dir)
+        local handle = vim.uv.fs_scandir(candidates_dir)
         if handle then
             while true do
-                local name = vim.loop.fs_scandir_next(handle)
+                local name = vim.uv.fs_scandir_next(handle)
                 if not name then break end
                 local path = candidates_dir .. "/" .. name
                 -- extract major version from path (e.g., "21.0.4-tem" -> 21)
@@ -199,7 +199,7 @@ local config = {
         },
     },
 
-    capabilities = require("blink-cmp").get_lsp_capabilities(),
+    capabilities = require("blink.cmp").get_lsp_capabilities(),
     flags = { allow_incremental_sync = true },
     init_options = { bundles = bundles },
 }

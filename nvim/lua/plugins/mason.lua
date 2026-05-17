@@ -156,8 +156,14 @@ return {
                 single_file_support = true,
                 root_dir = function(bufnr, on_dir)
                     local bufname = vim.api.nvim_buf_get_name(bufnr)
-                    if bufname ~= "" then
-                        on_dir(vim.fs.dirname(bufname))
+                    if bufname == "" then return end
+                    local dir = vim.fs.dirname(bufname)
+                    local basename = vim.fs.basename(bufname):gsub("%.ino$", "")
+                    local sketch = vim.fs.joinpath(dir, basename .. ".ino")
+                    if vim.fn.filereadable(sketch) == 1 then
+                        on_dir(dir)
+                    else
+                        on_dir(vim.fs.root(dir, { "sketch.yaml", ".git", "library.properties" }) or dir)
                     end
                 end,
                 capabilities = capabilities,

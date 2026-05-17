@@ -14,7 +14,7 @@ function M.render()
   if b ~= "" then table.insert(parts, b) end
   table.insert(parts, vim.fn.expand("%:t"))
   table.insert(parts, vim.fn.line(".") .. ":" .. vim.fn.col("."))
-  return " " .. table.concat(parts, " ")
+  return " " .. table.concat(parts, "  ")
 end
 
 return M

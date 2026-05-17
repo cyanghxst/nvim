@@ -153,6 +153,7 @@ return {
                     "arduino:avr:uno",
                 },
                 filetypes = { "arduino" },
+                single_file_support = true,
                 root_dir = function(bufnr, on_dir)
                     local bufname = vim.api.nvim_buf_get_name(bufnr)
                     if bufname ~= "" then

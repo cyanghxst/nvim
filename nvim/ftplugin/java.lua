@@ -9,12 +9,37 @@ local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:t")
 local workspace_dir = home .. "/.jdtls-workspace/" .. project_name
 
 local function find_java()
-    -- prefer JAVA_HOME, fall back to exepath
+    -- prefer JAVA_HOME, but only if it actually points at a real java binary;
+    -- then fall back to PATH, then known Homebrew openjdk locations.
+    local candidates = {}
+
     local java_home = vim.env.JAVA_HOME
     if java_home and java_home ~= "" then
-        return java_home .. "/bin/java"
+        table.insert(candidates, java_home .. "/bin/java")
     end
-    return vim.fn.exepath("java")
+
+    local path_java = vim.fn.exepath("java")
+    if path_java ~= "" then
+        table.insert(candidates, path_java)
+    end
+
+    -- Homebrew openjdk fallbacks (macOS)
+    table.insert(candidates, "/opt/homebrew/opt/openjdk/bin/java")
+    table.insert(candidates, "/usr/local/opt/openjdk/bin/java")
+
+    for _, java in ipairs(candidates) do
+        if vim.fn.executable(java) == 1 then
+            -- The macOS /usr/bin/java stub is "executable" but has no runtime;
+            -- actually run it so we don't hand jdtls a JVM that can't start.
+            vim.fn.system({ java, "-version" })
+            if vim.v.shell_error == 0 then
+                return java
+            end
+        end
+    end
+
+    vim.notify("jdtls: no working Java runtime found", vim.log.levels.ERROR)
+    return "java"
 end
 
 local function jdtls_config_dir()

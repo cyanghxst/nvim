@@ -172,6 +172,13 @@ return {
                 end,
                 capabilities = capabilities,
                 on_attach = on_attach,
+                on_exit = vim.schedule_wrap(function()
+                    vim.notify("ALS crashed, restarting...", vim.log.levels.WARN)
+                    local buf = vim.api.nvim_get_current_buf()
+                    if vim.bo[buf].filetype == "arduino" then
+                        vim.cmd("edit")
+                    end
+                end),
             }
         end
 

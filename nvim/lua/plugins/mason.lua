@@ -93,6 +93,11 @@ return {
                 local dir = vim.fs.dirname(bufname)
                 on_dir(vim.fs.root(dir, { "compile_commands.json", ".clangd", ".git", "Makefile", "configure.ac" }) or dir)
             end,
+            -- nvim-lspconfig ships its own lsp/clangd.lua with an on_attach
+            -- (adds switch-source-header/symbol-info commands) that is merged
+            -- in after this config and would otherwise clobber the shared
+            -- keymaps below, so re-apply them explicitly.
+            on_attach = on_attach,
         }
 
         vim.lsp.config.jsonls = {

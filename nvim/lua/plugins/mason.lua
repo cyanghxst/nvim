@@ -58,7 +58,6 @@ return {
                 "cssls",
                 "lua_ls",
                 "pyright",
-                "jdtls",
                 "jsonls",
                 "clangd",
                 "marksman",
@@ -187,6 +186,7 @@ return {
 
         require("mason-tool-installer").setup({
             ensure_installed = {
+                "jdtls",
                 "java-debug-adapter",
                 "java-test",
                 "prettier",

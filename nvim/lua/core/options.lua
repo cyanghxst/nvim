@@ -1,6 +1,8 @@
 local opt = vim.opt
 local o = vim.o
 
+vim.opt.autoread = true
+
 -- Disable command bar
 opt.cmdheight = 0
 

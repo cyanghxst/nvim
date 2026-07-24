@@ -1,3 +1,8 @@
+-- trigger checktime on focus/buffer events
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+    command = "checktime",
+})
+
 -- Disable sign column in tree
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()

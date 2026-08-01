@@ -12,7 +12,13 @@ function M.render()
   local parts = {}
   local b = branch()
   if b ~= "" then table.insert(parts, b) end
-  table.insert(parts, vim.fn.expand("%:t"))
+  local name = vim.fn.expand("%:t")
+  if vim.bo.modified then
+    name = name .. " [+]"
+  elseif vim.bo.readonly or not vim.bo.modifiable then
+    name = name .. " [-]"
+  end
+  table.insert(parts, name)
   table.insert(parts, vim.fn.line(".") .. ":" .. vim.fn.col("."))
   return " " .. table.concat(parts, "  ")
 end

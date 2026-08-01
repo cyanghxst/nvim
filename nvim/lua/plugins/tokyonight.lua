@@ -71,6 +71,9 @@ return {
             -- MiniIndentScope
             hl.MiniIndentscopeSymbol = { fg = palette.gray2 }
 
+            -- listchars (trailing whitespace, tabs)
+            hl.Whitespace = { fg = palette.gray3 }
+
             -- Lazy
             hl.LazyNormal = { bg = "NONE" }
 

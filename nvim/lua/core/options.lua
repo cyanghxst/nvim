@@ -42,6 +42,11 @@ opt.startofline = true
 opt.wrap = false
 opt.foldcolumn = "1"
 
+-- Show trailing whitespace
+opt.list = true
+-- `tab` is set explicitly so enabling `list` doesn't render tabs as ^I
+opt.listchars = { trail = "·", tab = "  " }
+
 -- Searching
 opt.hlsearch = true
 opt.ignorecase = true

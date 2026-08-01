@@ -16,6 +16,10 @@ return {
             astro = { "prettier" },
             c = { "clang-format" },
             cpp = { "clang-format" },
+
+            -- Filetypes without a formatter above still get trailing
+            -- whitespace stripped on save
+            ["_"] = { "trim_whitespace" },
         },
 
         formatters = {

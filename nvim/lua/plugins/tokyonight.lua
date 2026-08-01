@@ -62,6 +62,9 @@ return {
             hl.FloatBorder = { fg = palette.gray1 }
             hl.PmenuSel = { fg = palette.background, bg = palette.blue }
 
+            -- Split/window separator
+            hl.WinSeparator = { fg = palette.gray3 }
+
             -- Mason
             hl.MasonNormal = { bg = "NONE" }
 
@@ -92,6 +95,8 @@ return {
             hl.NvimTreeRootFolder = { fg = palette.bone, bold = true }
             hl.NvimTreeSpecialFile = { fg = palette.bone, bold = true }
             hl.NvimTreeExecFile = { fg = palette.red }
+            -- NvimTree draws its own separator group, not WinSeparator
+            hl.NvimTreeWinSeparator = { fg = palette.gray3 }
 
             -- Leap
             hl.LeapLabel = { fg = palette.green }

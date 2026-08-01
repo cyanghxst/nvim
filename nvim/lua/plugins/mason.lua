@@ -91,7 +91,10 @@ return {
                 local bufname = vim.api.nvim_buf_get_name(bufnr)
                 if bufname == "" then return end
                 local dir = vim.fs.dirname(bufname)
-                on_dir(vim.fs.root(dir, { "compile_commands.json", ".clangd", ".git", "Makefile", "configure.ac" }) or dir)
+                -- vim.fs.root checks markers in priority order, not nearest-match-wins,
+                -- so project-local markers must come before .git or a monorepo checkout
+                -- resolves to the repo root instead of the actual project directory.
+                on_dir(vim.fs.root(dir, { "compile_commands.json", ".clangd", "Makefile", "configure.ac", ".git" }) or dir)
             end,
             -- nvim-lspconfig ships its own lsp/clangd.lua with an on_attach
             -- (adds switch-source-header/symbol-info commands) that is merged

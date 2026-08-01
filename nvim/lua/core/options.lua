@@ -3,6 +3,10 @@ local o = vim.o
 
 vim.opt.autoread = true
 
+-- Rounded border on every floating window that doesn't set its own
+-- (LSP hover/signature-help/diagnostics floats, :h popups, etc.)
+o.winborder = "rounded"
+
 -- Disable command bar
 opt.cmdheight = 0
 

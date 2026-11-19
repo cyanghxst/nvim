@@ -18,24 +18,24 @@ Personal Neovim configuration, managed with [Dotbot](https://github.com/anishath
 .
 ├── .dotbot/            # Dotbot (git submodule)
 ├── .install.conf.yaml  # Dotbot config: which file links where
-├── install             # Entry point: syncs submodules, runs Dotbot
+├── install             # Syncs submodules, runs Dotbot
 ├── LICENSE
 ├── docs/               # Keymap reference and screenshots
-└── nvim/               # The Neovim config, linked to ~/.config/nvim
+└── nvim/               # Linked to ~/.config/nvim
 ```
 
 ## Config
 
 ```bash
 nvim/
-├── init.lua            # Leader keys, then loads the core modules
+├── init.lua            # Leader keys, loads core modules
 ├── ftplugin/           # Per-filetype settings (C++, Java)
-├── after/ftplugin/     # Overrides loaded after runtime ftplugins (conf, gitconfig)
-├── snippets/           # VSCode-style snippets: cpp, java, javascript, lua, python, typescript
+├── after/ftplugin/     # Overrides for conf and gitconfig
+├── snippets/           # VSCode-style snippets
 └── lua/
-    ├── core/           # autocmds, filetypes, keymaps, options, plugins (lazy.nvim bootstrap), statusline
-    ├── config/nvmenu/  # Right-click and Ctrl-t context menu: items and UI
-    └── plugins/        # One spec file per plugin, auto-loaded by lazy.nvim
+    ├── core/           # Options, keymaps, autocmds, statusline
+    ├── config/nvmenu/  # Right-click and Ctrl-t menu
+    └── plugins/        # One lazy.nvim spec per plugin
 ```
 
 ## Plugins

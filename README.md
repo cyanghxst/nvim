@@ -42,15 +42,15 @@ nvim/
 
 | Area | Plugins |
 | --- | --- |
-| Colorscheme | tokyonight |
-| LSP | nvim-lspconfig, mason, mason-lspconfig, mason-tool-installer, nvim-jdtls, schemastore |
-| Completion and snippets | blink.cmp, LuaSnip |
-| Formatting | conform.nvim (stylua, prettier, yamlfmt, clang-format; trailing whitespace trimmed on save) |
-| Syntax | nvim-treesitter, nvim-ts-autotag, nvim-highlight-colors |
-| Navigation | telescope, nvim-tree, leap (plus leap-spooky) |
-| Editing | nvim-surround, nvim-autopairs, vim-repeat |
-| UI | alpha, gitsigns, mini.icons, mini.indentscope, mini.bufremove, neoscroll, menu |
-| AI | opencode |
+| Colorscheme | [tokyonight](https://github.com/folke/tokyonight.nvim) |
+| LSP | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [mason](https://github.com/williamboman/mason.nvim), [mason-lspconfig](https://github.com/williamboman/mason-lspconfig.nvim), [mason-tool-installer](https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim), [nvim-jdtls](https://github.com/mfussenegger/nvim-jdtls), [schemastore](https://github.com/b0o/SchemaStore.nvim) |
+| Completion and snippets | [blink.cmp](https://github.com/saghen/blink.cmp), [LuaSnip](https://github.com/L3MON4D3/LuaSnip) |
+| Formatting | [conform.nvim](https://github.com/stevearc/conform.nvim) (stylua, prettier, yamlfmt, clang-format; trailing whitespace trimmed on save) |
+| Syntax | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter), [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag), [nvim-highlight-colors](https://github.com/brenoprata10/nvim-highlight-colors) |
+| Navigation | [telescope](https://github.com/nvim-telescope/telescope.nvim), [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua), [leap](https://codeberg.org/andyg/leap.nvim) (plus [leap-spooky](https://github.com/ggandor/leap-spooky.nvim)) |
+| Editing | [nvim-surround](https://github.com/kylechui/nvim-surround), [nvim-autopairs](https://github.com/windwp/nvim-autopairs), [vim-repeat](https://github.com/tpope/vim-repeat) |
+| UI | [alpha](https://github.com/goolord/alpha-nvim), [gitsigns](https://github.com/lewis6991/gitsigns.nvim), [mini.icons](https://github.com/echasnovski/mini.icons), [mini.indentscope](https://github.com/echasnovski/mini.indentscope), [mini.bufremove](https://github.com/echasnovski/mini.bufremove), [neoscroll](https://github.com/karb94/neoscroll.nvim), [menu](https://github.com/nvzone/menu) |
+| AI | [opencode](https://github.com/sudo-tee/opencode.nvim) |
 
 ## Keymaps
 

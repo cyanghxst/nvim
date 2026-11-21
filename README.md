@@ -64,10 +64,23 @@ Installed through Mason: `html`, `cssls`, `lua_ls`, `pyright`, `jsonls`, `clangd
 
 ### Requirements
 
-- Neovim 0.11 or newer (the config uses `vim.lsp.config`)
-- `git`, and a C compiler for building Treesitter parsers
-- A [Nerd Font](https://www.nerdfonts.com/) for icons. I use JetBrains Mono Nerd Font at size 14
-- `node` and `npm` for several Mason packages
+* `neovim`: 0.11 or newer (the config uses `vim.lsp.config`)
+* `git`: clones plugins and Treesitter parsers
+* `cc`: a C compiler for building Treesitter parsers
+* `tree-sitter`: the CLI nvim-treesitter's `main` branch uses to compile parsers. Without it, no parsers are installed
+* `nerd font`: for icons. I use [JetBrains Mono Nerd Font](https://www.nerdfonts.com/) at size 14
+* `node` / `npm`: for the npm-based Mason packages. Without `npm`, these are skipped
+
+Optional:
+
+* `openjdk`: a JDK for Java (`jdtls`). The macOS `/usr/bin/java` placeholder is not enough
+* `arduino-cli`: for Arduino sketches. Without it, the Arduino language server is turned off
+
+On macOS, Homebrew covers all of them:
+
+```bash
+brew install node tree-sitter-cli openjdk arduino-cli
+```
 
 ### Install
 

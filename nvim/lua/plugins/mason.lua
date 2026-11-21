@@ -52,22 +52,34 @@ return {
             on_attach = on_attach,
         }
 
-        require("mason-lspconfig").setup({
-            ensure_installed = {
+        -- arduino-language-server is useless (and its setup errors) without
+        -- arduino-cli, so only enable it when the CLI is actually installed.
+        local arduino_cli_path = vim.fn.exepath("arduino-cli")
+        local has_arduino_cli = arduino_cli_path ~= ""
+
+        -- These servers are installed through npm. Without it every install
+        -- fails and mason-lspconfig retries (and reports) each one on every
+        -- startup, so only request them once npm is on PATH.
+        local has_npm = vim.fn.executable("npm") == 1
+        local servers = { "lua_ls", "clangd", "marksman", "arduino_language_server" }
+        if has_npm then
+            vim.list_extend(servers, {
                 "html",
                 "cssls",
-                "lua_ls",
                 "pyright",
                 "jsonls",
-                "clangd",
-                "marksman",
                 "tailwindcss",
                 "ts_ls",
                 "bashls",
                 "astro",
-                "arduino_language_server",
-            },
+            })
+        end
 
+        require("mason-lspconfig").setup({
+            ensure_installed = servers,
+            automatic_enable = {
+                exclude = has_arduino_cli and {} or { "arduino_language_server" },
+            },
         })
 
         -- Per-server config overrides
@@ -134,11 +146,10 @@ return {
         }
 
         -- arduino-language-server: requires explicit CLI args and config path
-        do
+        if has_arduino_cli then
             local data = vim.fn.stdpath("data")
             local als_path = data .. "/mason/bin/arduino-language-server"
             local clangd_path = data .. "/mason/bin/clangd"
-            local arduino_cli_path = "/opt/homebrew/bin/arduino-cli"
             local home = os.getenv("HOME")
             local cli_config = home .. "/Library/Arduino15/arduino-cli.yaml"
 
@@ -199,16 +210,11 @@ return {
             },
         })
 
-        require("mason-tool-installer").setup({
-            ensure_installed = {
-                "jdtls",
-                "java-debug-adapter",
-                "java-test",
-                "prettier",
-                "stylua",
-                "yamlfmt",
-                "clang-format",
-            },
-        })
+        local tools = { "jdtls", "java-debug-adapter", "java-test", "stylua", "yamlfmt", "clang-format" }
+        if has_npm then
+            table.insert(tools, "prettier")
+        end
+
+        require("mason-tool-installer").setup({ ensure_installed = tools })
     end,
 }

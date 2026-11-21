@@ -99,7 +99,7 @@ return {
             hl.NvimTreeSpecialFile = { fg = palette.bone, bold = true }
             hl.NvimTreeExecFile = { fg = palette.red }
             -- NvimTree draws its own separator group, not WinSeparator
-            hl.NvimTreeWinSeparator = { fg = palette.gray3 }
+            -- hl.NvimTreeWinSeparator = { fg = palette.gray3 }
 
             -- Leap
             hl.LeapLabel = { fg = palette.green }
